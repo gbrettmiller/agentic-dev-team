@@ -1,3 +1,10 @@
+---
+name: data-scientist
+description: Machine learning model development, data analysis, and statistical validation
+tools: Read, Grep, Glob, Bash
+model: opus
+---
+
 # Data Scientist Agent
 
 ## Technical Responsibilities

@@ -1,3 +1,9 @@
+---
+name: legacy-code
+description: Techniques for safely modifying code that lacks tests or has poor structure
+user-invocable: true
+---
+
 # Legacy Code
 
 ## Overview
@@ -59,6 +65,9 @@ Incrementally replace legacy components by routing new behavior through new code
 3. Route new requests/features through new code
 4. Gradually migrate existing behavior to new code
 5. Remove old code only when fully replaced and verified
+
+## Output
+Report the legacy code analysis: identified change points, test points, dependency breaks needed, characterization test targets, and the recommended refactoring sequence.
 
 ## When to Apply
 

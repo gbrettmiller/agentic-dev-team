@@ -1,3 +1,9 @@
+---
+name: feedback-learning
+description: Capture user feedback, update agent and skill configurations dynamically, and maintain audit trail
+user-invocable: true
+---
+
 # Feedback & Learning
 
 ## Overview

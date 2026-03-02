@@ -1,3 +1,9 @@
+---
+name: accuracy-validation
+description: Procedures for detecting hallucinations, scoring output confidence, and triggering corrections
+user-invocable: true
+---
+
 # Accuracy Validation
 
 ## Overview

@@ -1,3 +1,9 @@
+---
+name: agent-skill-authoring
+description: How to create and maintain agents and skills within the Agentic Scrum Team system
+user-invocable: true
+---
+
 # Agent & Skill Authoring
 
 ## Overview

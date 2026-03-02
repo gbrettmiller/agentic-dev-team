@@ -1,3 +1,9 @@
+---
+name: task-review-correction
+description: Structured workflow for reviewing agent output, identifying defects, and iterating corrections
+user-invocable: true
+---
+
 # Task Review & Correction
 
 ## Overview

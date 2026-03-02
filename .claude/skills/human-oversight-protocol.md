@@ -1,3 +1,9 @@
+---
+name: human-oversight-protocol
+description: Human approval gates, intervention mechanisms, and transparency requirements for agent oversight
+user-invocable: true
+---
+
 # Human Oversight Protocol
 
 ## Overview

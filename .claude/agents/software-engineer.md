@@ -1,3 +1,10 @@
+---
+name: software-engineer
+description: Full-stack development, code generation, implementation, and refactoring
+tools: Read, Grep, Glob, Edit, Write, Bash
+model: opus
+---
+
 # Software Engineer Agent
 
 ## Technical Responsibilities

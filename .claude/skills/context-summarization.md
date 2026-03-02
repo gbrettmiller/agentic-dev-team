@@ -1,3 +1,9 @@
+---
+name: context-summarization
+description: Compress conversation history to maintain context utilization below 40% using LSTM-inspired gates
+user-invocable: true
+---
+
 # Context Summarization
 
 ## Overview

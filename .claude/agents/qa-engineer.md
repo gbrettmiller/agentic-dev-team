@@ -1,3 +1,10 @@
+---
+name: qa-engineer
+description: Acceptance test driven development, test generation, quality metrics, and regression testing
+tools: Read, Grep, Glob, Edit, Write, Bash
+model: sonnet
+---
+
 # QA/SQA Engineer Agent
 
 ## Technical Responsibilities

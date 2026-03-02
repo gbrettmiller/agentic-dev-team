@@ -1,3 +1,9 @@
+---
+name: governance-compliance
+description: Audit logging, multi-layer quality assurance, and ethical operation procedures
+user-invocable: true
+---
+
 # Governance & Compliance
 
 ## Overview

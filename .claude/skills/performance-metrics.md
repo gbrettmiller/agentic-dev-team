@@ -1,3 +1,9 @@
+---
+name: performance-metrics
+description: Schema and procedures for capturing performance data and evaluating agent effectiveness
+user-invocable: true
+---
+
 # Performance Metrics
 
 ## Overview

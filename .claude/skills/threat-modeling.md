@@ -1,3 +1,9 @@
+---
+name: threat-modeling
+description: Structured security analysis for identifying threats, attack surfaces, and mitigations
+user-invocable: true
+---
+
 # Threat Modeling
 
 ## Overview

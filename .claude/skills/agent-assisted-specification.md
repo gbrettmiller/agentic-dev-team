@@ -1,3 +1,9 @@
+---
+name: agent-assisted-specification
+description: Structured workflow for producing specification artifacts before implementation begins
+user-invocable: true
+---
+
 # Agent-Assisted Specification
 
 ## Overview

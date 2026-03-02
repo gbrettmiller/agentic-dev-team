@@ -1,3 +1,9 @@
+---
+name: mutation-testing
+description: Evaluate test suite quality by introducing code mutants and checking whether tests detect them
+user-invocable: true
+---
+
 # Mutation Testing
 
 ## Overview

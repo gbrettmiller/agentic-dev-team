@@ -1,8 +1,20 @@
+---
+name: api-design
+description: Contract-first API design patterns for defining stable, evolvable interfaces
+user-invocable: true
+---
+
 # API Design
 
 ## Overview
 
 Contract-first API design patterns for defining stable, evolvable interfaces between system components. Protocol-agnostic — applies to REST, gRPC, GraphQL, message-based, or any other interface style.
+
+## Constraints
+- Define the contract before implementing it; implementation conforms to the contract
+- Every endpoint must have an error contract; unspecified failure modes are not acceptable
+- Never remove a field or endpoint without a deprecation period and migration path
+- Do not expose internal domain models directly through API boundaries
 
 ## Core Concepts
 

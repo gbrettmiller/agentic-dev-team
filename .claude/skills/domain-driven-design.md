@@ -1,3 +1,9 @@
+---
+name: domain-driven-design
+description: Model software around the business domain using ubiquitous language, bounded contexts, and tactical patterns
+user-invocable: true
+---
+
 # Domain-Driven Design (DDD)
 
 ## Overview
@@ -70,6 +76,34 @@ Define explicit relationships between bounded contexts:
 | Simple CRUD with minimal logic | Skip tactical patterns; use DDD strategically (bounded contexts, ubiquitous language) |
 | Legacy integration | Anti-Corruption Layer to protect new model |
 | Multiple teams / services | Context mapping is essential |
+
+## Steps
+
+### 1. Establish Ubiquitous Language
+- Identify domain terms from requirements and stakeholder input
+- Verify code uses the same terms as domain experts
+- Flag language inconsistencies between code, docs, and conversation
+
+### 2. Define Bounded Contexts
+- Map each distinct model to its own context with clear boundaries
+- Identify context relationships using context mapping patterns (Shared Kernel, ACL, etc.)
+
+### 3. Select Tactical Patterns
+- Determine whether the domain complexity warrants aggregates, entities, value objects, and domain events
+- For simple CRUD, apply strategic DDD only (contexts + language)
+
+### 4. Validate Model
+- Confirm aggregates enforce consistency boundaries (one transaction = one aggregate)
+- Confirm cross-context communication uses domain events, not direct references
+- Confirm repositories exist per aggregate root with interfaces in domain/application layer
+
+## Output
+Report modeling decisions: bounded contexts identified, aggregate boundaries, context map relationships, and any violations of DDD constraints found in existing code.
+
+## Constraints
+- Do not share aggregate instances across bounded contexts; reference by ID only
+- Do not leak domain model internals through API boundaries
+- Do not apply full tactical DDD to simple CRUD domains
 
 ## Guidelines
 - Start with strategic DDD (contexts, language) before reaching for tactical patterns

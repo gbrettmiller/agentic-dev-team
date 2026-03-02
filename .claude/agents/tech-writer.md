@@ -1,3 +1,10 @@
+---
+name: tech-writer
+description: Project documentation, terminology consistency, and ubiquitous language enforcement
+tools: Read, Grep, Glob, Edit, Write
+model: sonnet
+---
+
 # Technical Writer Agent
 
 ## Technical Responsibilities

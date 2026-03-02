@@ -1,3 +1,9 @@
+---
+name: context-loading-protocol
+description: Procedure for deciding which agent and skill files to load into context for a given task
+user-invocable: true
+---
+
 # Context Loading Protocol
 
 ## Overview

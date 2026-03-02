@@ -1,3 +1,10 @@
+---
+name: security-engineer
+description: Threat modeling, security analysis, vulnerability assessment, and secure design guidance
+tools: Read, Grep, Glob, Bash
+model: opus
+---
+
 # Security Engineer Agent
 
 ## Technical Responsibilities

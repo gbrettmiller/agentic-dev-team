@@ -1,3 +1,9 @@
+---
+name: hexagonal-architecture
+description: Design systems with clear separation between business logic and infrastructure using ports and adapters
+user-invocable: true
+---
+
 # Hexagonal Architecture (Ports & Adapters)
 
 ## Overview
@@ -40,6 +46,32 @@ src/
     ├── inbound/         # Controllers, CLI, event consumers
     └── outbound/        # Repository impls, API clients, message publishers
 ```
+
+## Steps
+
+### 1. Identify Boundaries
+- Enumerate all external dependencies (databases, APIs, message brokers, file systems)
+- Identify each as an inbound or outbound interaction
+
+### 2. Define Ports
+- Create an inbound port interface for each use case the application exposes
+- Create an outbound port interface for each external dependency the application needs
+
+### 3. Implement Adapters
+- Build an adapter for each port connecting to the concrete technology
+- Verify all dependencies point inward (adapters depend on ports, never the reverse)
+
+### 4. Validate Structure
+- Confirm domain layer has zero imports from infrastructure or adapter layers
+- Confirm tests can substitute adapters without touching domain logic
+
+## Output
+Report structural compliance as a list of violations (port without adapter, domain importing infrastructure, etc.) or confirm the structure passes all checks.
+
+## Constraints
+- Do not embed framework dependencies in the domain layer
+- Do not bypass ports with direct infrastructure access from application services
+- Keep the application layer thin: orchestrate domain objects, don't duplicate domain logic
 
 ## Guidelines
 - Every external dependency gets its own adapter behind a port
