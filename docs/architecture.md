@@ -129,8 +129,25 @@ Intervention commands (`override`, `pause`, `stop`) give humans immediate contro
 - All task completions logged to `metrics/` (JSONL format)
 - All configuration changes logged to `metrics/config-changelog.jsonl`
 - Conversation summaries stored in `memory/` for cross-session continuity
+- Significant routing and architectural decisions logged to `memory/decisions.md`
 - Sensitive data (credentials, PII) never stored in metrics or memory files
 - All agent decisions must be explainable on request
+
+### Pre-Execution Hook Pipeline
+
+A `PreToolUse` hook (`pre-tool-guard.sh`) intercepts every Write and Edit call before execution:
+
+| Action | Trigger | Behavior |
+| --- | --- | --- |
+| Block | Path matches `blocked_paths` in `guards.json` | Exit 2 — write cancelled, message shown |
+| Warn | Path matches `warn_paths` in `guards.json` | Exit 0 — write proceeds, warning shown |
+| Allow | No match | Exit 0 — write proceeds silently |
+
+Default blocked patterns: `.env`, `*.pem`, `*.key`, `*.p12`, `*.pfx`, `*credential*`, `*secret*`, `*.token`. Configurable via `.claude/hooks/guards.json`.
+
+### Decision Log
+
+Agents append to `memory/decisions.md` when making non-obvious decisions during task execution. The log persists across session resets, giving future phases visibility into prior reasoning without re-reading full conversation history.
 
 ## Feedback Loop
 

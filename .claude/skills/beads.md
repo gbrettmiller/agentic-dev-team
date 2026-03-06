@@ -93,6 +93,39 @@ Each Beads issue should map to roughly one focused agent session:
 
 This is the primary value: short, high-quality sessions rather than one long degrading context.
 
+## Session Checkpointing
+
+Beads is the crash-recovery primitive. If a session closes or crashes mid-task, the issue remains `in-progress` and the next session can resume from the last checkpoint without reconstructing context from scratch.
+
+At key milestones during implementation, write a progress snapshot into the issue body:
+
+```bash
+bd update bd-a1b2 --body "$(cat <<'EOF'
+## Checkpoint — 2026-03-06T14:30Z
+- [x] Defined UserRepository interface (src/ports/user-repository.ts)
+- [x] Wrote SQL adapter (src/adapters/sql-user-repository.ts)
+- [ ] Write acceptance tests — next step
+- [ ] Wire into DI container
+Blocked on: nothing
+Next action: write test file at src/__tests__/user-registration.feature
+EOF
+)"
+```
+
+**Checkpoint triggers** — update the issue body:
+- After each file written
+- After tests pass or fail (record the result)
+- Before any long-running operation
+- Whenever stopping work mid-task for any reason
+
+**On resume** — read the snapshot to pick up where you left off:
+
+```bash
+bd show bd-a1b2   # shows current body with last checkpoint
+```
+
+This pairs with `memory/` progress files: Beads tracks *what remains and where you stopped*; `memory/` captures *why decisions were made*.
+
 ## Multi-Agent Coordination
 
 When multiple agents work in parallel, use assignee filtering to avoid collisions:

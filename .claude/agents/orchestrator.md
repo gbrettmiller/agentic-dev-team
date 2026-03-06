@@ -94,6 +94,7 @@ Every non-trivial task follows three explicit phases. Each phase runs in minimal
 - **Goal**: Execute the plan. Write code, run tests, verify at each step.
 - **Agents**: Software Engineer (primary), QA Engineer (validation), others as needed
 - **Input**: Plan progress file from Phase 2; query `bd ready --json` at session start to find the next unblocked task; claim it with `bd update <id> --assignee software-engineer` before starting
+- **Checkpointing**: After each file written or significant milestone, update the active Beads issue body with a structured progress snapshot (`bd update <id> --body "..."`) — this is the crash-recovery record. If the session closes before `done`, the next session reads `bd show <id>` and resumes from the last checkpoint.
 - **Output**: Working code that passes all tests, acceptance criteria, and code review; mark each issue done with `bd update <id> --status done` and start a fresh session for the next `bd ready` item
 - **Inline review**: After each discrete unit of work completes (not after every file), run the **Inline Review Checkpoint** (see below)
 - **Final verify**: After all units complete and tests pass, run `/code-review --changed` on all modified files:
@@ -158,6 +159,32 @@ When any checkpoint agent returns `fail`:
 3. Human reviews and approves before proceeding
 4. Start new context window for the next phase
 5. Load only the progress file + agents needed for the new phase
+
+## Decision Log
+
+Significant decisions are appended to `memory/decisions.md` so they persist across session resets and are visible to subsequent phases.
+
+**Log a decision when:**
+- Routing to a non-default agent for a non-obvious reason
+- Choosing between two valid architectural or implementation approaches
+- Overriding a routing table default or established convention
+- Resolving a conflict between agent recommendations
+- Making a scope call that constrains future phases
+
+**Do not log** routine decisions (standard routing, normal code patterns, expected behavior).
+
+**Entry format:**
+```
+**ID**: DEC-YYYY-MM-DD-NNN
+**Date**: YYYY-MM-DD
+**Agent**: <agent-name>
+**Task**: <brief task context>
+**Decision**: <what was decided>
+**Rationale**: <why>
+**Alternatives rejected**: <other options and why not chosen>
+```
+
+Append the entry to `memory/decisions.md` using the Write or Edit tool before moving to the next phase.
 
 ## Collaboration Protocols
 

@@ -186,6 +186,8 @@ Users can modify system behavior at any time using trigger keywords (`amend`, `l
 
 Changes are logged to `metrics/config-changelog.jsonl` with full audit trail and rollback support.
 
+Non-obvious routing and architectural decisions are logged to `memory/decisions.md` by the Orchestrator during task execution. This log persists across session resets and gives subsequent phases visibility into prior reasoning.
+
 ## Human Oversight
 
 Agents operate autonomously within defined boundaries. Human involvement is required for high-impact decisions (production deployments, architecture changes, scope modifications). The full protocol is defined in **[Human Oversight Protocol](skills/human-oversight-protocol.md)**.
@@ -197,6 +199,8 @@ Intervention commands: `amend`, `learn`, `remember`, `forget`, `override`, `paus
 All agents apply self-validation before delivering output. The QA agent performs peer validation when applicable. See **[Accuracy Validation](skills/accuracy-validation.md)** for the checklist and confidence scoring system.
 
 Audit logging, quality gates, and ethics principles are defined in **[Governance & Compliance](skills/governance-compliance.md)**.
+
+A `PreToolUse` hook (`hooks/pre-tool-guard.sh`) blocks writes to sensitive paths (credentials, keys, secrets) before they execute. Protected path patterns are configurable via `hooks/guards.json`.
 
 ## Performance Metrics
 

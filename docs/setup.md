@@ -62,13 +62,17 @@ Then manually copy the agent registry tables from `agentic-scrum-team/.claude/CL
 
 For adding individual agents from this repo or other repositories, and for creating project-specific custom agents, see [Agents — Custom and Cross-Repo](agent_info.md#add-a-project-specific-custom-agent).
 
-Three PostToolUse hooks activate automatically on every file write or edit:
+One PreToolUse hook runs before every file write or edit:
+
+- `pre-tool-guard.sh` — blocks writes to sensitive paths (credentials, keys, secrets); warns on writes to protected config files. Configured via `.claude/hooks/guards.json`.
+
+Three PostToolUse hooks run after every file write or edit:
 
 - `js-fp-review.sh` — warns on array mutations and impure patterns in JS/TS files
 - `token-efficiency-review.sh` — warns when files exceed recommended size limits
 - `eval-compliance-check.sh` — warns when agent or command files are missing required structural elements; emits targeted doc-sync reminders for config and general repo changes
 
-Hooks are advisory only — they never block writes.
+PostToolUse hooks are advisory — they never block writes. The PreToolUse guard can block writes to protected paths (exit 2).
 
 ## Plugins
 
