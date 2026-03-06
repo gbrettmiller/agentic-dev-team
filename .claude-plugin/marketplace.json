@@ -1,0 +1,23 @@
+{
+  "name": "agentic-dev-team",
+  "owner": {
+    "name": "Bryan Finster"
+  },
+  "metadata": {
+    "description": "Persona-driven AI development team for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "agentic-dev-team",
+      "source": "./",
+      "description": "Persona-driven AI development team: orchestrator, team agents, review agents, skills, slash commands, and advisory hooks for Claude Code",
+      "version": "1.0.0",
+      "author": {
+        "name": "Bryan Finster"
+      },
+      "homepage": "https://github.com/bdfinst/agentic-dev-team",
+      "repository": "https://github.com/bdfinst/agentic-dev-team",
+      "license": "MIT"
+    }
+  ]
+}
