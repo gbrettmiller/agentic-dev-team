@@ -22,6 +22,35 @@ model: sonnet
 - Task classification algorithm
 - Load balancing logic
 
+## Model Routing Table
+
+The orchestrator is the **authoritative source for model selection**. When spawning any agent via the Agent tool, pass the model explicitly using this table. Each agent's own `model:` frontmatter is a fallback for direct invocation only.
+
+| Agent / Task Class | Model | Rationale |
+|---|---|---|
+| naming-review, complexity-review, claude-setup-review, token-efficiency-review, performance-review | `haiku` | Pattern-matching, deterministic, low context |
+| test-review, structure-review, js-fp-review, concurrency-review, a11y-review, svelte-review | `sonnet` | Semantic analysis, balanced cost/quality |
+| security-review, domain-review, architect | `opus` | Cross-file reasoning, high-stakes decisions |
+| orchestrator | `sonnet` | Routing and coordination |
+| software-engineer | `sonnet` (default) / `opus` for architectural changes | Complexity-driven |
+| qa-engineer, tech-writer, all others | `sonnet` | Standard analysis |
+
+## Command Delegation
+
+All review commands are executed under orchestrator direction. When a user triggers a review command, the orchestrator applies model routing and inline review logic before delegating execution.
+
+| Command | Delegated workflow | When orchestrator triggers it |
+|---|---|---|
+| `/code-review` | Full suite review with pre-flight gates | End of Phase 3, or user request |
+| `/review-agent` | Single-agent review | Inline checkpoint during Phase 3 |
+| `/eval-audit` | Compliance check for agents/skills/hooks | After adding or modifying agents or commands |
+| `/eval-runner` | Accuracy validation against fixtures | When validating review agent quality |
+| `/add-agent` | Scaffold new review agent | When a new review capability is needed |
+| `/add-plugin` | Install and register a plugin | When a new plugin is needed |
+| `/apply-fixes` | Apply correction prompts | After `/code-review` generates corrections |
+| `/review-summary` | Persist session summary | At phase transitions |
+| `/semgrep-analyze` | Static analysis | As pre-flight context for security-review |
+
 ## Skills
 - [Context Loading Protocol](../skills/context-loading-protocol.md) - invoke at the start of every task to decide which agents and skills to load, and at phase transitions to unload/swap
 - [Context Summarization](../skills/context-summarization.md) - invoke when context utilization signals are present (high turn count, degraded output quality) or at phase transitions
@@ -32,7 +61,15 @@ model: sonnet
 - [Task Review & Correction](../skills/task-review-correction.md) - invoke when a task needs rework or when coordinating review-correction loops between agents
 - [Agent-Assisted Specification](../skills/agent-assisted-specification.md) - invoke when routing a new feature request; verify the consistency gate passed before loading implementing agents
 - [Beads Task Tracking](../skills/beads.md) - invoke at task start to query `bd ready --json` for unblocked work; invoke during Research to file discovered issues; invoke during Plan to create and link Beads issues for each planned change; invoke during Implement to update issue status as work completes
-- [Code Review](/code-review) - invoke after implementation is complete and tests pass, before committing; delegates to cab-killer plugin agents for automated peer review
+- [Code Review](../commands/code-review.md) - invoke after each Phase 3 checkpoint and before committing; runs all relevant review agents with orchestrator-assigned models
+- [Review Agent](../commands/review-agent.md) - invoke for targeted single-agent inline review during Phase 3 checkpoints
+- [Eval Audit](../commands/eval-audit.md) - invoke after adding or modifying any agent or command file
+- [Eval Runner](../commands/eval-runner.md) - invoke to validate review agent accuracy when fixtures are added or changed
+- [Apply Fixes](../commands/apply-fixes.md) - invoke after `/code-review` generates correction prompts; passes corrections to coding agent
+- [Review Summary](../commands/review-summary.md) - invoke at phase transitions to persist review state before context compaction
+- [Agent Add](../commands/agent-add.md) - invoke when a new review capability is needed; runs eval-audit and doc updates automatically
+- [Agent Remove](../commands/agent-remove.md) - invoke when retiring any agent; handles file deletion, registry cleanup, and doc updates
+- [Semgrep Analyze](../commands/semgrep-analyze.md) - invoke as pre-flight context for security-review when SAST findings are needed
 
 ## Three-Phase Workflow
 
@@ -58,12 +95,60 @@ Every non-trivial task follows three explicit phases. Each phase runs in minimal
 - **Agents**: Software Engineer (primary), QA Engineer (validation), others as needed
 - **Input**: Plan progress file from Phase 2; query `bd ready --json` at session start to find the next unblocked task; claim it with `bd update <id> --assignee software-engineer` before starting
 - **Output**: Working code that passes all tests, acceptance criteria, and code review; mark each issue done with `bd update <id> --status done` and start a fresh session for the next `bd ready` item
-- **Verify**: After tests pass, run `/code-review --changed` on all modified files:
+- **Inline review**: After each discrete unit of work completes (not after every file), run the **Inline Review Checkpoint** (see below)
+- **Final verify**: After all units complete and tests pass, run `/code-review --changed` on all modified files:
   - `fail` → Software Engineer addresses critical issues, re-run review
   - `warn` → include findings in human gate summary
-  - `pass` → proceed to human gate
+  - `pass` → proceed to doc review
+- **Doc review**: Before the human gate, invoke the tech-writer to review all documentation affected by the changes:
+  - Any behavioral or architectural change → check `docs/usage.md`, `docs/architecture.md`, `README.md`
+  - Any configuration or tooling change → check `docs/setup.md`
+  - Any agent or skill change → check `.claude/CLAUDE.md`, `docs/agent_info.md`, `docs/skills.md`, `docs/team-structure.md`
+  - Tech-writer updates outdated sections and confirms all docs reflect current behavior before proceeding
 - **Human gate**: Human reviews the final output. If the plan was good, implementation review is lightweight.
 - **Context**: If implementation is large, compact mid-phase — update the plan progress file with completed steps and continue in a fresh context
+
+#### Inline Review Checkpoint
+
+After each discrete unit of work (a function, a module, a feature slice — as defined in the Phase 2 plan):
+
+**Step 1 — Select agents by what changed:**
+
+| Changed | Agents to run |
+|---|---|
+| JS/TS functions | complexity-review (haiku), naming-review (haiku), js-fp-review (sonnet) |
+| Test files | test-review (sonnet) |
+| API surface / auth | security-review (opus) |
+| Domain/business logic | domain-review (opus) |
+| UI components | a11y-review (sonnet), structure-review (sonnet) |
+| Agent or command files | eval-compliance-check hook runs automatically; also run /eval-audit |
+| All changes | structure-review (sonnet) as a baseline |
+
+**Step 2 — Run selected agents in parallel** using Agent tool with model from the Routing Table above.
+
+**Step 3 — Aggregate findings and apply Review Loop:**
+
+- `pass` / `warn` → log findings in phase output, continue
+- `fail` → enter the **Review Loop** below
+
+#### Review Loop
+
+When any checkpoint agent returns `fail`:
+
+1. Package findings as structured correction context:
+   ```
+   Review finding — [agent-name] at [file:line]
+   Issue: [message]
+   Required fix: [suggestedFix]
+   ```
+2. Send to Software Engineer: "Revise to address these findings before continuing."
+3. Software Engineer revises **only the targeted code** — no surrounding changes.
+4. Re-run only the agents that returned `fail`.
+5. If still `fail` after **2 iterations** → escalate to human with:
+   - The original findings
+   - Both revision attempts
+   - Recommended resolution path
+6. `warn` after any iteration is acceptable; document in phase output and continue.
 
 ### Phase Transitions
 1. Complete the current phase's work

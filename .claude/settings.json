@@ -1,15 +1,18 @@
 {
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": true,
-    "claude-code-setup@claude-plugins-official": true,
-    "cab-killer@cab-killer": true
+    "claude-code-setup@claude-plugins-official": true
   },
-  "extraKnownMarketplaces": {
-    "cab-killer": {
-      "source": {
-        "source": "github",
-        "repo": "bdfinst/cab-killer"
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          { "type": "command", "command": "bash .claude/hooks/js-fp-review.sh" },
+          { "type": "command", "command": "bash .claude/hooks/token-efficiency-review.sh" },
+          { "type": "command", "command": "bash .claude/hooks/eval-compliance-check.sh" }
+        ]
       }
-    }
+    ]
   }
 }

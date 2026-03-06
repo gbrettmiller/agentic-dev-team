@@ -19,19 +19,41 @@ See @docs/team-structure.md for the full team org chart (Mermaid diagram).
 
 ## Agent Registry
 
+### Team Agents
+
 | Agent | File | ~Tokens | Primary Focus |
 |-------|------|---------|---------------|
-| Orchestrator | `agents/orchestrator.md` | 370 | Task routing, coordination |
-| Software Engineer | `agents/software-engineer.md` | 300 | Code generation, implementation |
+| Orchestrator | `agents/orchestrator.md` | 500 | Task routing, model selection, review coordination |
+| Software Engineer | `agents/software-engineer.md` | 320 | Code generation, implementation |
 | Data Scientist | `agents/data-scientist.md` | 290 | ML models, data analysis |
-| QA/SQA Engineer | `agents/qa-engineer.md` | 310 | Testing, quality assurance |
+| QA/SQA Engineer | `agents/qa-engineer.md` | 320 | Testing, quality assurance |
 | UI/UX Designer | `agents/ui-ux-designer.md` | 300 | Interface design, UX |
 | Architect | `agents/architect.md` | 360 | System design, architecture |
 | Product Manager | `agents/product-manager.md` | 300 | Requirements, prioritization |
 | Technical Writer | `agents/tech-writer.md` | 560 | Documentation, style consistency |
 | Security Engineer | `agents/security-engineer.md` | 320 | Security analysis, threat modeling |
 | DevOps/SRE Engineer | `agents/devops-sre-engineer.md` | 320 | Pipeline, deployment, reliability |
-| **All agents loaded** | | **~3,430** | |
+| **All team agents** | | **~3,590** | |
+
+### Review Agents
+
+Spawned by the orchestrator during Phase 3 inline checkpoints and full `/code-review` runs. Model selection follows the **Orchestrator Model Routing Table** in `agents/orchestrator.md`.
+
+| Agent | File | Model Tier | What It Checks |
+|-------|------|------------|----------------|
+| a11y-review | `agents/a11y-review.md` | mid | WCAG 2.1 AA, ARIA, keyboard nav, focus management |
+| claude-setup-review | `agents/claude-setup-review.md` | small | CLAUDE.md completeness, rules, skills, path accuracy |
+| complexity-review | `agents/complexity-review.md` | small | Function size, cyclomatic complexity, nesting, parameters |
+| concurrency-review | `agents/concurrency-review.md` | mid | Race conditions, async pitfalls, shared state |
+| domain-review | `agents/domain-review.md` | frontier | Domain boundaries, abstraction leaks, entity/DTO confusion |
+| js-fp-review | `agents/js-fp-review.md` | mid | Array mutations, impure patterns, global state |
+| naming-review | `agents/naming-review.md` | small | Intent-revealing names, boolean prefixes, magic values |
+| performance-review | `agents/performance-review.md` | small | Resource leaks, N+1 queries, unbounded growth |
+| security-review | `agents/security-review.md` | frontier | Injection, auth/authz, data exposure, crypto |
+| structure-review | `agents/structure-review.md` | mid | SRP violations, DRY, coupling, file organization |
+| svelte-review | `agents/svelte-review.md` | mid | Svelte reactivity pitfalls, closure state leaks |
+| test-review | `agents/test-review.md` | mid | Coverage gaps, assertion quality, test hygiene |
+| token-efficiency-review | `agents/token-efficiency-review.md` | small | File/function size, LLM anti-patterns, token usage |
 
 ## Skills Registry
 
@@ -56,7 +78,23 @@ Skills are reusable knowledge modules in `.claude/skills/` that agents reference
 | Legacy Code | `skills/legacy-code.md` | 700 | Software Engineer, QA Engineer, Architect |
 | Mutation Testing | `skills/mutation-testing.md` | 700 | QA Engineer, Software Engineer |
 | Beads Task Tracking | `skills/beads.md` | 500 | Orchestrator, Software Engineer, QA Engineer |
-| Code Review (external) | `/code-review` (cab-killer plugin) | — | Orchestrator, Software Engineer, QA Engineer |
+
+## Slash Commands Registry
+
+User-invocable workflows in `.claude/commands/`. All review commands are executed under orchestrator direction. The orchestrator's **Model Routing Table** (`agents/orchestrator.md`) determines model assignment for all review agents.
+
+| Command | File | Role | What It Does |
+|---------|------|------|--------------|
+| `/code-review` | `commands/code-review.md` | orchestrator | Run all enabled review agents with pre-flight gates |
+| `/review-agent` | `commands/review-agent.md` | worker | Run a single review agent (used for inline checkpoints) |
+| `/eval-audit` | `commands/eval-audit.md` | orchestrator | Audit agents/commands/hooks for structural compliance |
+| `/eval-runner` | `commands/eval-runner.md` | orchestrator | Run eval fixtures, grade accuracy, detect regressions |
+| `/agent-add` | `commands/agent-add.md` | implementation | Scaffold a new review agent with eval compliance and doc updates |
+| `/agent-remove` | `commands/agent-remove.md` | implementation | Remove an agent and all its registry entries and doc references |
+| `/add-plugin` | `commands/add-plugin.md` | implementation | Install a plugin and register it in settings.json |
+| `/apply-fixes` | `commands/apply-fixes.md` | implementation | Apply correction prompts from `/code-review` output |
+| `/review-summary` | `commands/review-summary.md` | orchestrator | Generate compact session summary for context continuity |
+| `/semgrep-analyze` | `commands/semgrep-analyze.md` | worker | Run Semgrep SAST and return structured findings |
 
 ## Request Processing Flow
 
@@ -67,7 +105,7 @@ For trivial tasks (typo fix, simple query), the Orchestrator routes directly to 
 2. **Human Review Gate** — Human reviews research findings. Catching a misunderstanding here prevents hundreds of bad lines of code.
 3. **Plan** — Specify every change: files, snippets, test strategy, verification steps. The plan is the primary review artifact — 200 lines of plan is far more reviewable than 2,000 lines of code. Output: implementation plan progress file written to `memory/`.
 4. **Human Review Gate** — Human reviews the plan. This replaces traditional line-by-line code review as the primary quality gate.
-5. **Implement** — Execute the plan. Write code, run tests, verify at each step. Run `/code-review --changed` on all modified files before committing. If the plan is good, implementation is mechanical. Output: working code + test results + code review pass.
+5. **Implement** — Execute the plan. Write code, run tests, verify at each step. After each discrete unit of work, the orchestrator runs an **inline review checkpoint** using targeted review agents. Review findings feed back to the coding agent (max 2 correction iterations). Run `/code-review --changed` before committing. Then invoke the tech-writer to verify all affected documentation is current before the human gate. Output: working code + test results + code review pass + docs verified.
 6. **Human Review Gate** — Human reviews the final output. Lightweight if the plan was correct.
 7. **Learning loop** — Update configs if needed, log metrics, refine routing.
 
@@ -99,6 +137,18 @@ When a task requires multiple agents:
 7. Integration and validation (QA validates, Architect reviews if architectural changes)
 8. Unified result delivery
 
+## Model Routing
+
+The orchestrator controls model selection for all agents. The full routing table is in `agents/orchestrator.md`. Summary:
+
+| Model | Assigned to |
+|-------|------------|
+| `haiku` | naming-review, complexity-review, claude-setup-review, token-efficiency-review, performance-review |
+| `sonnet` | test-review, structure-review, js-fp-review, concurrency-review, a11y-review, svelte-review, orchestrator, qa-engineer, tech-writer, software-engineer (default) |
+| `opus` | security-review, domain-review, architect, software-engineer (architectural changes) |
+
+Each agent's `model:` frontmatter is a fallback for direct invocation. When the orchestrator spawns agents via the Agent tool, it passes the model explicitly from the routing table.
+
 ## Multi-LLM Routing
 
 | Criteria | Claude | Gemini |
@@ -116,10 +166,11 @@ Context management is the Orchestrator's responsibility, governed by two operati
 2. **[Context Summarization](skills/context-summarization.md)** - decides *when* to compress and *how*, using LSTM-inspired gates, utilization triggers, and structured summaries written to `memory/`
 
 ### Baseline Budget
-- CLAUDE.md (always loaded): ~870 tokens
-- Single agent + single skill: ~600-1,100 tokens
-- All agents (no skills): ~3,430 tokens
-- Full load (all agents + all skills): ~14,200 tokens
+- CLAUDE.md (always loaded): ~1,400 tokens
+- Single team agent + single skill: ~600-1,100 tokens
+- All team agents (no skills): ~3,590 tokens
+- All review agents: ~2,800 tokens (spawned as sub-agents, not loaded in parent context)
+- Full load (all team agents + all skills): ~14,200 tokens
 
 ### Operating Rules
 1. **Load on demand**: Only load agent/skill files when their phase begins (see Loading Protocol)

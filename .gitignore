@@ -7,3 +7,4 @@
 # Performance logs (generated at runtime)
 .claude/metrics/*.json
 .claude/metrics/*.log
+UPDATE.md

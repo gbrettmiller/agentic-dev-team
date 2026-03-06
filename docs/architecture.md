@@ -2,13 +2,46 @@
 
 ## System Overview
 
-```text
-User Request → Orchestrator → Agent Selection → Task Execution → Result
-                    ↑                                    ↓
-                    └──────── Learning Loop ──────────────┘
+```mermaid
+flowchart TD
+    U([User Request]) --> O[Orchestrator]
+    O --> MR[Model Routing Table]
+    O --> AS[Agent Selection]
+    MR --> AS
+    AS --> TE[Task Execution\nCoding Agent]
+    TE --> IRC[Inline Review Checkpoint\nTargeted Review Agents]
+    IRC -->|fail ≤ 2 iterations| RF[Review Feedback\nCorrection Context]
+    RF --> TE
+    IRC -->|fail after 2 iterations| HE([Escalate to Human])
+    IRC -->|pass / warn| LL[Learning Loop]
+    LL --> O
 ```
 
-The Orchestrator receives every request, classifies it by type and complexity, selects agents, loads them in phases, and coordinates delivery. After each task, the learning loop captures metrics and evaluates whether configuration updates are needed.
+The Orchestrator receives every request, classifies it by type and complexity, selects agents, assigns models, and coordinates delivery. During Phase 3 (Implement), review agents check coding agent output at each discrete unit-of-work checkpoint. Findings feed back as structured corrections (max 2 cycles before human escalation). After each task, the learning loop captures metrics and evaluates whether configuration updates are needed.
+
+## Model Routing
+
+The Orchestrator is the **authoritative source for model selection**. Individual agent `model:` frontmatter is a fallback for direct invocation only. When the orchestrator spawns an agent via the Agent tool, it passes model explicitly from the routing table.
+
+| Model | Assigned to |
+| --- | --- |
+| `haiku` | naming-review, complexity-review, claude-setup-review, token-efficiency-review, performance-review |
+| `sonnet` | test-review, structure-review, js-fp-review, concurrency-review, a11y-review, svelte-review, orchestrator, qa-engineer, tech-writer, software-engineer (default) |
+| `opus` | security-review, domain-review, architect, software-engineer (architectural changes) |
+
+Full routing table: `agents/orchestrator.md` → Model Routing Table section.
+
+## Inline Review Loop
+
+During Phase 3, after each discrete unit of work:
+
+1. Orchestrator selects targeted review agents based on what changed (JS/TS → js-fp-review + complexity-review; API surface → security-review; etc.)
+2. Agents run in parallel as sub-agents with orchestrator-assigned models
+3. `fail` findings → packaged as correction context → sent to coding agent
+4. Coding agent revises only targeted code
+5. Failed agents re-run; if still `fail` after 2 iterations → escalate to human
+6. `warn` findings → logged in phase output, continue
+7. Final gate: `/code-review --changed` before commit
 
 ## Context Management
 
@@ -41,24 +74,29 @@ Utilization is measured via the `usage` field in API responses. Summaries follow
 
 | Component | ~Tokens |
 | --- | --- |
-| CLAUDE.md (always loaded) | 870 |
-| Single agent | 290-560 |
+| CLAUDE.md (always loaded) | ~1,400 |
+| Single team agent | 290-560 |
 | Single skill | 420-1,020 |
-| All agents (no skills) | 2,790 |
-| Full load (all agents + all skills) | 10,800 |
+| All team agents (no skills) | ~3,590 |
+| Review agents | ~2,800 (sub-agents, not loaded in parent context) |
+| Full load (all team agents + all skills) | ~14,200 |
 
-A typical task loads 1 agent + 1-2 skills: roughly 1,000-2,000 tokens of configuration overhead.
+A typical task loads 1 agent + 1-2 skills: roughly 1,000-2,000 tokens of configuration overhead. Review agents run as isolated sub-agents — their context burden does not accumulate in the parent.
 
 ## Quality Assurance
 
-Validation happens at four progressive layers:
+Validation happens in this sequence during Phase 3:
 
-| Layer | Who | When |
-| --- | --- | --- |
-| Self-validation | Active agent | Before delivering any output |
-| Peer validation | QA agent | After primary output, before delivery |
-| Human spot-check | User | After delivery (accept/reject/amend) |
-| Post-hoc monitoring | Orchestrator | During learning loop |
+| Order | Layer | Who | When |
+| --- | --- | --- | --- |
+| 1 | Self-validation | Active agent | Before delivering any unit of work |
+| 2 | Inline review checkpoint | Targeted review agents | After each discrete unit of work |
+| 3 | Review feedback correction | Coding agent | Up to 2 correction cycles per checkpoint |
+| 4 | Final code review | `/code-review --changed` | Before committing; runs full agent suite |
+| 5 | Documentation review | Tech-writer | After code review passes; verifies docs reflect current behavior |
+| 6 | Peer validation | QA agent | After implementation, before phase delivery |
+| 7 | Human gate | User | At each phase transition (Research, Plan, Implement) |
+| 8 | Post-hoc monitoring | Orchestrator | During learning loop after task completion |
 
 Every agent applies the [Accuracy Validation](../.claude/skills/accuracy-validation.md) self-check before output. This includes factual accuracy verification, instruction fidelity, internal consistency, and confidence scoring.
 

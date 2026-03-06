@@ -1,6 +1,9 @@
-# Skills
+# Skills and Slash Commands
 
-Skills define **what agents know**. Each skill file in `.claude/skills/` captures reusable knowledge (patterns, guidelines, procedures) that any agent can reference.
+There are two kinds of reusable capabilities in this system:
+
+- **Skills** (`/skills/`) — knowledge modules that agents read for domain expertise (patterns, guidelines, procedures). Agent-agnostic; any agent can reference them.
+- **Slash commands** (`/commands/`) — user-invocable workflows with numbered steps, argument parsing, and structured output. Executed under Orchestrator direction.
 
 ## Skills Catalog
 
@@ -8,39 +11,68 @@ Skills define **what agents know**. Each skill file in `.claude/skills/` capture
 
 Used by the Orchestrator to manage the team:
 
-| Skill | File | ~Tokens | Purpose |
-| --- | --- | --- | --- |
-| Context Loading Protocol | [`context-loading-protocol.md`](../.claude/skills/context-loading-protocol.md) | 600 | Decides which agent/skill files to load and when |
-| Context Summarization | [`context-summarization.md`](../.claude/skills/context-summarization.md) | 500 | Compresses conversation history at utilization thresholds |
-| Feedback & Learning | [`feedback-learning.md`](../.claude/skills/feedback-learning.md) | 1,010 | Processes feedback keywords, audit trail, rollback |
-| Human Oversight Protocol | [`human-oversight-protocol.md`](../.claude/skills/human-oversight-protocol.md) | 1,020 | Approval gates, intervention commands, escalation |
-| Performance Metrics | [`performance-metrics.md`](../.claude/skills/performance-metrics.md) | 890 | Task logging schema and reporting procedures |
+| Skill | File | Purpose |
+| --- | --- | --- |
+| Context Loading Protocol | [`context-loading-protocol.md`](../.claude/skills/context-loading-protocol.md) | Decides which agent/skill files to load and when |
+| Context Summarization | [`context-summarization.md`](../.claude/skills/context-summarization.md) | Compresses conversation history at utilization thresholds |
+| Feedback & Learning | [`feedback-learning.md`](../.claude/skills/feedback-learning.md) | Processes feedback keywords, audit trail, rollback |
+| Human Oversight Protocol | [`human-oversight-protocol.md`](../.claude/skills/human-oversight-protocol.md) | Approval gates, intervention commands, escalation |
+| Performance Metrics | [`performance-metrics.md`](../.claude/skills/performance-metrics.md) | Task logging schema and reporting procedures |
+| Agent & Skill Authoring | [`agent-skill-authoring.md`](../.claude/skills/agent-skill-authoring.md) | How to create and maintain agents and skills |
+| Task Review & Correction | [`task-review-correction.md`](../.claude/skills/task-review-correction.md) | Review-correction loop coordination between agents |
+| Agent-Assisted Specification | [`agent-assisted-specification.md`](../.claude/skills/agent-assisted-specification.md) | BDD scenario consistency gate before implementation |
+| Beads Task Tracking | [`beads.md`](../.claude/skills/beads.md) | Beads issue lifecycle, session discipline, multi-agent coordination |
 
 ### Quality Skills
 
 Used by all agents to ensure output correctness:
 
-| Skill | File | ~Tokens | Purpose |
-| --- | --- | --- | --- |
-| Accuracy Validation | [`accuracy-validation.md`](../.claude/skills/accuracy-validation.md) | 880 | Self-validation checklist, hallucination detection, confidence scoring |
-| Governance & Compliance | [`governance-compliance.md`](../.claude/skills/governance-compliance.md) | 990 | Audit trail, quality assurance layers, ethics principles |
+| Skill | File | Purpose |
+| --- | --- | --- |
+| Accuracy Validation | [`accuracy-validation.md`](../.claude/skills/accuracy-validation.md) | Self-validation checklist, hallucination detection, confidence scoring |
+| Governance & Compliance | [`governance-compliance.md`](../.claude/skills/governance-compliance.md) | Audit trail, quality assurance layers, ethics principles |
 
 ### Technical Skills
 
 Domain knowledge for implementation work:
 
-| Skill | File | ~Tokens | Purpose |
-| --- | --- | --- | --- |
-| Hexagonal Architecture | [`hexagonal-architecture.md`](../.claude/skills/hexagonal-architecture.md) | 420 | Ports & adapters pattern, dependency rule, project structure |
-| Domain-Driven Design | [`domain-driven-design.md`](../.claude/skills/domain-driven-design.md) | 710 | Bounded contexts, aggregates, domain events, ubiquitous language |
+| Skill | File | Purpose |
+| --- | --- | --- |
+| Hexagonal Architecture | [`hexagonal-architecture.md`](../.claude/skills/hexagonal-architecture.md) | Ports & adapters pattern, dependency rule, project structure |
+| Domain-Driven Design | [`domain-driven-design.md`](../.claude/skills/domain-driven-design.md) | Bounded contexts, aggregates, domain events, ubiquitous language |
+| API Design | [`api-design.md`](../.claude/skills/api-design.md) | Contract-first design, versioning, REST conventions |
+| Threat Modeling | [`threat-modeling.md`](../.claude/skills/threat-modeling.md) | STRIDE analysis, trust boundaries, mitigation strategies |
+| Legacy Code | [`legacy-code.md`](../.claude/skills/legacy-code.md) | Characterization testing, safe refactoring in untested code |
+| Mutation Testing | [`mutation-testing.md`](../.claude/skills/mutation-testing.md) | Evaluating test suite effectiveness against behavioral mutations |
 
-### Meta Skills
+## Slash Commands Catalog
 
-Skills about the system itself:
+Slash commands are invoked by the user (e.g., `/code-review`) and executed under Orchestrator direction. The Orchestrator's Model Routing Table controls which model runs each review agent.
 
-| Skill | File | ~Tokens | Purpose |
-| --- | --- | --- | --- |
-| Agent & Skill Authoring | [`agent-skill-authoring.md`](../.claude/skills/agent-skill-authoring.md) | 990 | How to create and maintain agents and skills |
+### Review Commands
+
+| Command | File | Purpose |
+| --- | --- | --- |
+| `/code-review` | [`code-review.md`](../.claude/commands/code-review.md) | Run all review agents with pre-flight gates (lint, type-check, secret scan) |
+| `/review-agent <name>` | [`review-agent.md`](../.claude/commands/review-agent.md) | Run a single named review agent; used for inline Phase 3 checkpoints |
+| `/apply-fixes` | [`apply-fixes.md`](../.claude/commands/apply-fixes.md) | Apply correction prompts generated by `/code-review` |
+| `/review-summary` | [`review-summary.md`](../.claude/commands/review-summary.md) | Generate a compact session summary for cross-session context continuity |
+| `/semgrep-analyze` | [`semgrep-analyze.md`](../.claude/commands/semgrep-analyze.md) | Run Semgrep static analysis and return structured findings |
+
+### Eval Commands
+
+| Command | File | Purpose |
+| --- | --- | --- |
+| `/eval-audit` | [`eval-audit.md`](../.claude/commands/eval-audit.md) | Audit agents and commands for structural compliance |
+| `/eval-runner` | [`eval-runner.md`](../.claude/commands/eval-runner.md) | Run eval fixtures, grade review agent accuracy, detect regressions |
+
+### Scaffolding Commands
+
+| Command | File | Purpose |
+| --- | --- | --- |
+| `/agent-add` | [`agent-add.md`](../.claude/commands/agent-add.md) | Scaffold a new review agent with eval compliance check and doc updates |
+| `/agent-remove` | [`agent-remove.md`](../.claude/commands/agent-remove.md) | Remove an agent and all its registry entries and doc references |
+| `/add-plugin` | [`add-plugin.md`](../.claude/commands/add-plugin.md) | Install a plugin and register it in `settings.json` |
 
 ## How Agents Use Skills
 
@@ -52,17 +84,24 @@ Agents reference skills in their `## Skills` section with invocation context:
 - [Domain-Driven Design](../skills/domain-driven-design.md) - invoke when modeling bounded contexts
 ```
 
-The annotation after the link explains *when and why* that agent uses the skill. The skill itself is agent-agnostic and defines *how*.
+The annotation explains *when and why* that agent uses the skill. The skill itself defines *how* and is agent-agnostic.
 
-## Add a New Skill
+## Add a Knowledge Skill
 
-1. Create `skills/{skill-name}.md` with the required sections (see below)
-2. Add it to the Skills Registry table in `CLAUDE.md`
-3. Reference it from each agent's `## Skills` section with invocation context
+1. Create `.claude/skills/{skill-name}.md` with the required sections (see template below)
+2. Add it to the Skills Registry table in `.claude/CLAUDE.md`
+3. Reference it from each relevant agent's `## Skills` section with invocation context
 
 ### Skill Template
 
 ```markdown
+---
+name: skill-name
+description: When to trigger this skill and what it does.
+role: worker
+user-invocable: true
+---
+
 # [Skill Name]
 
 ## Overview
@@ -82,3 +121,7 @@ The annotation after the link explains *when and why* that agent uses the skill.
 ```
 
 See [Agent & Skill Authoring](../.claude/skills/agent-skill-authoring.md) for detailed guidelines and anti-patterns.
+
+## Add a Slash Command
+
+For a new review agent command, use `/add-agent`. For a new workflow command, create `.claude/commands/{name}.md` following the slash command structure (YAML frontmatter with `user-invocable: true`, `Role:` declaration, constraints, numbered steps). Run `/eval-audit` after creation.
