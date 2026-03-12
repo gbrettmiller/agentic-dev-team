@@ -3,6 +3,7 @@ name: legacy-code
 description: Safely modify code that lacks tests. Use whenever tasked with changing code without test coverage — apply characterization tests and dependency-breaking techniques before making any behavioral changes.
 role: worker
 user-invocable: true
+status: active
 ---
 
 # Legacy Code

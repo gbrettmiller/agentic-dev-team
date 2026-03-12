@@ -3,6 +3,7 @@ name: holden
 description: Holden — requirements clarification, priority management, and stakeholder alignment
 tools: Read, Grep, Glob
 model: sonnet
+status: active
 ---
 
 # Holden — Product Manager

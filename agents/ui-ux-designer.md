@@ -3,6 +3,7 @@ name: alex
 description: Alex — user interface design, UX optimization, and accessibility compliance
 tools: Read, Grep, Glob
 model: sonnet
+status: active
 ---
 
 # Alex — UI/UX Designer

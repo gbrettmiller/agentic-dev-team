@@ -21,16 +21,20 @@ agent and update all required documentation.
 
 ## Implementation constraints
 
-1. **Confirm before deleting.** Always show the user what will be removed
+1. **Offer deprecation first.** Before deleting, ask the user whether they
+   want to deprecate or delete. Deprecation is the default for `active`
+   agents — it preserves history while removing the agent from routing.
+   Deletion is permanent and requires explicit confirmation.
+2. **Confirm before deleting.** Always show the user what will be removed
    and wait for confirmation before any destructive action.
-2. **Detect agent type first.** Review agents (declare `Model tier:`) and
+3. **Detect agent type first.** Review agents (declare `Model tier:`) and
    team agents (declare persona sections) require different cleanup paths.
-3. **Remove all references.** An agent that is deleted but still referenced
+4. **Remove all references.** An agent that is deleted but still referenced
    in other files leaves the system in an inconsistent state.
-4. **Always update documentation.** Documentation steps are mandatory.
+5. **Always update documentation.** Documentation steps are mandatory.
    Invoke the tech-writer persona to review updated docs before reporting
    completion.
-5. **Be concise.** Report only what changed. No narration of each step.
+6. **Be concise.** Report only what changed. No narration of each step.
 
 ## Parse Arguments
 
@@ -57,7 +61,47 @@ Read `.claude/agents/<name>.md`:
 - If it declares `Model tier:` → **review agent**
 - Otherwise → **team agent**
 
-### 3. Show removal plan
+### 3. Offer deprecation vs. deletion
+
+If the agent has `status: active`, present the user with two options:
+
+```text
+Agent: <name> (<type>) — currently active
+
+Options:
+  [D] Deprecate — sets status: deprecated in frontmatter and registry.
+      Removes the agent from routing. File and history preserved.
+      Use when replacing with a newer agent or temporarily disabling.
+
+  [X] Delete   — permanently removes the agent file, registry entry,
+      eval fixtures, and all documentation references.
+      Use when the capability is no longer needed.
+
+Choice (D/X):
+```
+
+If the user chooses **deprecation**, skip to the Deprecation path below.
+If the user chooses **deletion** (or the agent is already `deprecated` or
+`draft`), continue with the deletion path.
+
+#### Deprecation path
+
+1. In `agents/<name>.md`, change `status: active` → `status: deprecated`
+   (add `deprecated-by: agents/<replacement-name>` if a replacement exists)
+2. In `registry/agents/<name>.json`, change `"lifecycle": "active"` →
+   `"lifecycle": "deprecated"`
+3. In `registry/index.json`, update the entry's `"lifecycle"` to
+   `"deprecated"`
+4. Report:
+   ```text
+   Agent deprecated: <name>
+   status: deprecated (removed from routing)
+   File preserved: agents/<name>.md
+   Registry updated: registry/agents/<name>.json
+   ```
+   Stop here — documentation cleanup is not required for deprecation.
+
+### 4. Show deletion plan
 
 Display a confirmation prompt listing every action that will be taken:
 

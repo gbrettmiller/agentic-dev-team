@@ -43,7 +43,21 @@ To add a new review agent, use `/agent-add`. See [Add a Review Agent](#add-a-rev
 
 ## Persona Template
 
-Every agent file follows this structure:
+Every agent file starts with YAML frontmatter followed by the persona body. Required frontmatter fields:
+
+```markdown
+---
+name: role-name
+description: One-line summary of this agent's purpose.
+tools: Read, Grep, Glob
+model: sonnet
+status: active
+---
+```
+
+`status` values: `draft` (new, not yet validated) | `active` (validated, routable) | `deprecated` (replaced, not routed) | `retired` (archived). The Orchestrator skips agents with `status: deprecated` or `status: retired`.
+
+Persona body structure:
 
 ```markdown
 # [Role Name] Agent

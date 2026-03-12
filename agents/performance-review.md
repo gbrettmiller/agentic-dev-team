@@ -3,6 +3,7 @@ name: performance-review
 description: Resource leaks, N+1 queries, unbounded growth, timeouts, algorithmic issues
 tools: Read, Grep, Glob
 model: haiku
+status: active
 ---
 
 # Performance Review

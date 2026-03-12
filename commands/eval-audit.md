@@ -186,6 +186,11 @@ For each agent file in `agents/*.md`:
    - WARN if `lifecycle` is `deprecated` or `retired` — flag for human review
      to confirm the agent has been removed from routing
 
+5. **Draft agents without evals**: Is a `draft` agent missing eval fixtures?
+   - For review agents with `status: draft` in frontmatter: WARN if no eval
+     fixtures exist (no files matching `fixture-prefix` in `evals/fixtures/`)
+   - Draft agents should not be promoted to `active` until evals pass
+
 ### 6. Generate report
 
 ```text

@@ -3,6 +3,7 @@ name: doc-review
 description: Documentation accuracy, README staleness, API doc alignment, inline comment drift, ADR update triggers
 tools: Read, Grep, Glob
 model: sonnet
+status: active
 ---
 
 # Documentation Review

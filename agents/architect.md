@@ -3,6 +3,7 @@ name: naomi
 description: Naomi — system design, architecture definition, and technical decision oversight
 tools: Read, Grep, Glob, Bash
 model: opus
+status: active
 ---
 
 # Naomi — Architect

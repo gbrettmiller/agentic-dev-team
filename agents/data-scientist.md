@@ -3,6 +3,7 @@ name: prax
 description: Prax — machine learning model development, data analysis, and statistical validation
 tools: Read, Grep, Glob, Bash
 model: opus
+status: active
 ---
 
 # Prax — Data Scientist

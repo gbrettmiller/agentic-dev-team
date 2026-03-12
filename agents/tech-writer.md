@@ -3,6 +3,7 @@ name: monica
 description: Monica — project documentation, terminology consistency, and ubiquitous language enforcement
 tools: Read, Grep, Glob, Edit, Write
 model: sonnet
+status: active
 ---
 
 # Monica — Technical Writer

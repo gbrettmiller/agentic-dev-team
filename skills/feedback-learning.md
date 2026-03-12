@@ -3,6 +3,7 @@ name: feedback-learning
 description: Capture amend/learn/remember/forget keywords from the user and update agent or skill configurations. Invoke immediately when the user issues any of these trigger words — parse the change, preview a diff, apply it, and log it to the audit trail.
 role: orchestrator
 user-invocable: true
+status: active
 ---
 
 # Feedback & Learning

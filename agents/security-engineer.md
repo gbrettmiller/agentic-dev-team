@@ -3,6 +3,7 @@ name: bobbi
 description: Bobbi — threat modeling, security analysis, vulnerability assessment, and secure design guidance
 tools: Read, Grep, Glob, Bash
 model: opus
+status: active
 ---
 
 # Bobbi — Security Engineer

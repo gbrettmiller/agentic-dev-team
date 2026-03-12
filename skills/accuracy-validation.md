@@ -3,6 +3,7 @@ name: accuracy-validation
 description: Apply before delivering any output. Detects hallucinations, scores output confidence, and triggers corrections. Use whenever an agent is about to deliver a response and wants to verify factual accuracy, or when reviewing another agent's output for quality.
 role: worker
 user-invocable: true
+status: active
 ---
 
 # Accuracy Validation

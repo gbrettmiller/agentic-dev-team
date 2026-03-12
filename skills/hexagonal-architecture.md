@@ -3,6 +3,7 @@ name: hexagonal-architecture
 description: Design with ports and adapters to separate business logic from infrastructure. Use when designing a new service, reviewing structural compliance, or deciding how to introduce a new external dependency without coupling the domain.
 role: worker
 user-invocable: true
+status: active
 ---
 
 # Hexagonal Architecture (Ports & Adapters)

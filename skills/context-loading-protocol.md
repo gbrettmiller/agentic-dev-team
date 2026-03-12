@@ -3,6 +3,7 @@ name: context-loading-protocol
 description: Decide which agents and skills to load for a given task. Use at the start of every task to select the minimum viable context load, calculate the token budget, and stay below the 40% utilization ceiling.
 role: orchestrator
 user-invocable: true
+status: active
 ---
 
 # Context Loading Protocol

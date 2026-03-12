@@ -3,6 +3,7 @@ name: domain-analysis
 description: Strategic DDD health assessment of an existing system. Use whenever someone asks to analyze their architecture, assess domain health, find coupling problems, map bounded contexts, trace event flows across services, or understand what is slowing down delivery. Trigger on phrases like "what's wrong with our architecture", "where is the coupling", "assess our domain", "event storming", "value stream", "friction report", "bounded contexts", or "why is everything so tangled". Apply to existing codebases — use domain-driven-design skill for greenfield modeling.
 role: worker
 user-invocable: true
+status: active
 ---
 
 # Domain Analysis

@@ -3,6 +3,7 @@ name: peaches
 description: Peaches — acceptance test driven development, test generation, quality metrics, and regression testing
 tools: Read, Grep, Glob, Edit, Write, Bash
 model: sonnet
+status: active
 ---
 
 # Peaches — QA/SQA Engineer

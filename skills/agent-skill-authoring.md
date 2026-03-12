@@ -3,6 +3,7 @@ name: agent-skill-authoring
 description: How to create and maintain agent and skill files for the Agentic Scrum Team. Use whenever adding a new agent persona, creating a new skill, or updating an existing one — including required registration in CLAUDE.md.
 role: worker
 user-invocable: true
+status: active
 ---
 
 # Agent & Skill Authoring
@@ -109,6 +110,7 @@ name: skill-name
 description: When to trigger this skill and what it does. Be specific about the contexts that should cause an agent to invoke it.
 role: worker
 user-invocable: true
+status: draft
 ---
 
 # [Skill Name]
@@ -153,6 +155,9 @@ Use `/agent-add` — it handles all registration steps automatically. For manual
 2. Add a row to the Review Agents table in `docs/agent_info.md`
 3. Add to the dispatch diagram in `docs/team-structure.md`
 4. Add eval fixtures to `.claude/evals/fixtures/` and expected results to `.claude/evals/expected/`
+5. Create a registry entry in `registry/agents/<name>.json`
+
+**Lifecycle**: New agents start at `status: draft`. Promote to `status: active` only after eval validation passes (`/eval-runner` reports no regressions). The Orchestrator will not route to `deprecated` or `retired` agents.
 
 ### For a New Knowledge Skill
 1. Add to the **Skills Registry** table in `.claude/CLAUDE.md`

@@ -98,6 +98,7 @@ name: <name>
 description: <one-line summary>
 tools: Read, Grep, Glob
 model: <haiku|sonnet|opus>
+status: draft
 ---
 
 # <Title Case Name>

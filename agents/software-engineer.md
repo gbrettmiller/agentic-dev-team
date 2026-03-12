@@ -3,6 +3,7 @@ name: amos
 description: Amos — full-stack development, code generation, implementation, and refactoring
 tools: Read, Grep, Glob, Edit, Write, Bash
 model: opus
+status: active
 ---
 
 # Amos — Software Engineer

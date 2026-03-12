@@ -3,6 +3,7 @@ name: agent-assisted-specification
 description: Collaborative workflow for producing the four specification artifacts (intent, BDD scenarios, architecture notes, acceptance criteria) before any implementation begins. Use when starting any new feature or behavior change — do not write code until artifacts pass the consistency gate.
 role: worker
 user-invocable: true
+status: active
 ---
 
 # Agent-Assisted Specification

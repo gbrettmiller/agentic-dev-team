@@ -3,6 +3,7 @@ name: structure-review
 description: SRP violations, DRY, coupling, nesting depth, file organization
 tools: Read, Grep, Glob
 model: sonnet
+status: active
 ---
 
 # Structure Review

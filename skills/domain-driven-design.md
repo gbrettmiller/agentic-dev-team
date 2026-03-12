@@ -3,6 +3,7 @@ name: domain-driven-design
 description: Model software around the business domain. Use when designing bounded contexts, defining aggregates and value objects, mapping context relationships, or working with complex business logic. Apply before implementation to prevent model drift.
 role: worker
 user-invocable: true
+status: active
 ---
 
 # Domain-Driven Design (DDD)

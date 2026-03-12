@@ -3,6 +3,7 @@ name: test-review
 description: Test quality, coverage gaps, assertion quality, and test hygiene
 tools: Read, Grep, Glob
 model: sonnet
+status: active
 ---
 
 # Test Review
