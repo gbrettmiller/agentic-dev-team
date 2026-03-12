@@ -4,6 +4,7 @@ description: Naming clarity, conventions, magic values, and consistency
 tools: Read, Grep, Glob
 model: haiku
 status: active
+version: 1.0.0
 ---
 
 # Naming Review

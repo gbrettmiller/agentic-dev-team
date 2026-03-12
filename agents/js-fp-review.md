@@ -4,6 +4,7 @@ description: Array mutations, parameter mutations, global state, impure patterns
 tools: Read, Grep, Glob
 model: sonnet
 status: active
+version: 1.0.0
 ---
 
 # JS FP Review

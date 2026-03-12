@@ -4,6 +4,7 @@ description: How to create and maintain agent and skill files for the Agentic Sc
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Agent & Skill Authoring
@@ -90,6 +91,18 @@ Agent (when + why)          Skill (how)
 - [Measurable KPIs for this role]
 ```
 
+### Semantic Versioning
+
+Every agent and skill frontmatter carries a `version:` field following semver (`MAJOR.MINOR.PATCH`). The frontmatter is the **single source of truth** — whenever the version changes, update the corresponding registry manifest (`registry/agents/<name>.json` or `registry/skills/<name>.json`) to match.
+
+| Change type | When to bump | Example |
+|---|---|---|
+| **Patch** `x.x.1` | Clarifications, typo fixes, wording improvements — no behavioral change | Reword a detection rule description |
+| **Minor** `x.1.0` | New capability added, backwards-compatible | Add a new detection category |
+| **Major** `2.0.0` | Output format change, required section renamed/removed, breaking behavioral change | Change `issues[]` schema, rename `## Detect` |
+
+New agents start at `0.1.0` (`status: draft`). Promote to `1.0.0` when `status: active` (evals pass).
+
 ### Agent Authoring Guidelines
 - Keep agents focused on orchestration: *when* to act, *who* to collaborate with, *why* to escalate
 - Execution details belong in skills, not in the agent persona
@@ -111,6 +124,7 @@ description: When to trigger this skill and what it does. Be specific about the 
 role: worker
 user-invocable: true
 status: draft
+version: 0.1.0
 ---
 
 # [Skill Name]

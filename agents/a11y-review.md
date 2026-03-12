@@ -4,6 +4,7 @@ description: WCAG 2.1 AA compliance, semantic HTML, ARIA, keyboard navigation, f
 tools: Read, Grep, Glob
 model: sonnet
 status: active
+version: 1.0.0
 ---
 
 # Accessibility Review

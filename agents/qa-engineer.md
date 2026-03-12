@@ -4,6 +4,7 @@ description: Peaches — acceptance test driven development, test generation, qu
 tools: Read, Grep, Glob, Edit, Write, Bash
 model: sonnet
 status: active
+version: 1.0.0
 ---
 
 # Peaches — QA/SQA Engineer

@@ -4,6 +4,7 @@ description: Strategic DDD health assessment of an existing system. Use whenever
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Domain Analysis

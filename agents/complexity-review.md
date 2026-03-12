@@ -4,6 +4,7 @@ description: Cyclomatic complexity, nesting depth, function size, parameter coun
 tools: Read, Grep, Glob
 model: haiku
 status: active
+version: 1.0.0
 ---
 
 # Complexity Review

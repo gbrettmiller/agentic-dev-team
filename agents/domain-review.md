@@ -4,6 +4,7 @@ description: Domain boundaries, abstraction leaks, business logic placement
 tools: Read, Grep, Glob
 model: opus
 status: active
+version: 1.0.0
 ---
 
 # Domain Review

@@ -4,6 +4,7 @@ description: Svelte reactivity pitfalls, closure state leaks, $state proxy issue
 tools: Read, Grep, Glob
 model: sonnet
 status: active
+version: 1.0.0
 ---
 
 # Svelte Review

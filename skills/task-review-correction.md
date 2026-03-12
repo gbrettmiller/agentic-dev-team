@@ -4,6 +4,7 @@ description: Review completed output, classify defects by severity, and iterate 
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Task Review & Correction

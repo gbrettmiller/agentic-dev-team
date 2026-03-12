@@ -4,6 +4,7 @@ description: Prax — machine learning model development, data analysis, and sta
 tools: Read, Grep, Glob, Bash
 model: opus
 status: active
+version: 1.0.0
 ---
 
 # Prax — Data Scientist

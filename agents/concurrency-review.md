@@ -4,6 +4,7 @@ description: Race conditions, async pitfalls, idempotency, shared state safety
 tools: Read, Grep, Glob
 model: sonnet
 status: active
+version: 1.0.0
 ---
 
 # Concurrency Review

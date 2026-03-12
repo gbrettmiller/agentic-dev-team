@@ -4,6 +4,7 @@ description: Drummer — pipeline design, deployment strategy, observability, an
 tools: Read, Grep, Glob, Bash
 model: sonnet
 status: active
+version: 1.0.0
 ---
 
 # Drummer — DevOps/SRE Engineer

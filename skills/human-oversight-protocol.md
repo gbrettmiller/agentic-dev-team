@@ -4,6 +4,7 @@ description: Approval gates, intervention commands, and transparency requirement
 role: orchestrator
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Human Oversight Protocol

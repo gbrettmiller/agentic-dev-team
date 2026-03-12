@@ -4,6 +4,7 @@ description: Validate test suite quality by injecting mutants and checking wheth
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Mutation Testing

@@ -4,6 +4,7 @@ description: Documentation accuracy, README staleness, API doc alignment, inline
 tools: Read, Grep, Glob
 model: sonnet
 status: active
+version: 1.0.0
 ---
 
 # Documentation Review

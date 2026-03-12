@@ -4,6 +4,7 @@ description: Capture amend/learn/remember/forget keywords from the user and upda
 role: orchestrator
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Feedback & Learning

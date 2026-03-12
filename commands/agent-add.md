@@ -99,6 +99,7 @@ description: <one-line summary>
 tools: Read, Grep, Glob
 model: <haiku|sonnet|opus>
 status: draft
+version: 0.1.0
 ---
 
 # <Title Case Name>

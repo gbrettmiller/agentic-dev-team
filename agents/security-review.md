@@ -4,6 +4,7 @@ description: Injection, auth/authz, data exposure, security headers, crypto
 tools: Read, Grep, Glob
 model: opus
 status: active
+version: 1.0.0
 ---
 
 # Security Review

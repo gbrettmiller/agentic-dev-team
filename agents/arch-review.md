@@ -4,6 +4,7 @@ description: Architectural alignment — ADR compliance, layer boundary violatio
 tools: Read, Grep, Glob
 model: opus
 status: active
+version: 1.0.0
 ---
 
 # Architecture Review

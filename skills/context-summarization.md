@@ -4,6 +4,7 @@ description: Compress conversation history when context utilization approaches 4
 role: orchestrator
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Context Summarization

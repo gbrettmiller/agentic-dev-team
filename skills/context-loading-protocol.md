@@ -4,6 +4,7 @@ description: Decide which agents and skills to load for a given task. Use at the
 role: orchestrator
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Context Loading Protocol

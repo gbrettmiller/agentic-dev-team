@@ -4,6 +4,7 @@ description: Use Beads (bd) as the structured task tracker for all agent work. R
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Beads Task Tracking Skill

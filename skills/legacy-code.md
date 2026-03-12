@@ -4,6 +4,7 @@ description: Safely modify code that lacks tests. Use whenever tasked with chang
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Legacy Code

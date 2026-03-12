@@ -4,6 +4,7 @@ description: Naomi — system design, architecture definition, and technical dec
 tools: Read, Grep, Glob, Bash
 model: opus
 status: active
+version: 1.0.0
 ---
 
 # Naomi — Architect

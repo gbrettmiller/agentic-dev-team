@@ -4,6 +4,7 @@ description: Holden — requirements clarification, priority management, and sta
 tools: Read, Grep, Glob
 model: sonnet
 status: active
+version: 1.0.0
 ---
 
 # Holden — Product Manager

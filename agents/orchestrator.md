@@ -4,6 +4,7 @@ description: Chrisjen — central dispatcher that routes tasks to specialized ag
 tools: Read, Grep, Glob, Agent
 model: sonnet
 status: active
+version: 1.0.0
 ---
 
 # Chrisjen — Orchestrator

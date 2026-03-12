@@ -4,6 +4,7 @@ description: SRP violations, DRY, coupling, nesting depth, file organization
 tools: Read, Grep, Glob
 model: sonnet
 status: active
+version: 1.0.0
 ---
 
 # Structure Review

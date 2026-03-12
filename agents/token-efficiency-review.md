@@ -4,6 +4,7 @@ description: Token usage optimization, file length, CLAUDE.md size, LLM anti-pat
 tools: Read, Grep, Glob
 model: haiku
 status: active
+version: 1.0.0
 ---
 
 # Token Efficiency Review

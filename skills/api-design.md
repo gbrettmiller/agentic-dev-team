@@ -4,6 +4,7 @@ description: Contract-first API design for stable, evolvable interfaces. Use whe
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # API Design

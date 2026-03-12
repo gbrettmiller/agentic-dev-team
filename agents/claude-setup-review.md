@@ -4,6 +4,7 @@ description: CLAUDE.md completeness, rules, skills, and path accuracy
 tools: Read, Grep, Glob
 model: haiku
 status: active
+version: 1.0.0
 ---
 
 # Claude Setup Review

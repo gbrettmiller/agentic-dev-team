@@ -4,6 +4,7 @@ description: Model software around the business domain. Use when designing bound
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Domain-Driven Design (DDD)

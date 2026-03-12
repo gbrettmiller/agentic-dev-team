@@ -96,6 +96,18 @@ if [ "$FILE_TYPE" = "agent" ]; then
     fi
   fi
 
+  # 11. Version sync reminder (WARN)
+  FRONTMATTER_VERSION=$(echo "$CONTENT" | grep -m1 '^version:' | awk '{print $2}')
+  if [ -n "$FRONTMATTER_VERSION" ]; then
+    REGISTRY_ENTRY="${REPO_ROOT}/registry/agents/${AGENT_NAME}.json"
+    if [ -f "$REGISTRY_ENTRY" ]; then
+      REGISTRY_VERSION=$(python3 -c "import json,sys; d=json.load(open('$REGISTRY_ENTRY')); print(d.get('version',''))" 2>/dev/null)
+      if [ "$FRONTMATTER_VERSION" != "$REGISTRY_VERSION" ]; then
+        warn "$AGENT_NAME: Frontmatter version ($FRONTMATTER_VERSION) differs from registry version ($REGISTRY_VERSION). Update registry/agents/${AGENT_NAME}.json to match."
+      fi
+    fi
+  fi
+
   # Always require /eval-audit and doc sync after agent changes
   printf "\n"
   if [ -n "$FAILS" ]; then

@@ -4,6 +4,7 @@ description: Audit logging, quality gates, and ethics procedures for the agent t
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Governance & Compliance

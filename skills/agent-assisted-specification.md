@@ -4,6 +4,7 @@ description: Collaborative workflow for producing the four specification artifac
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Agent-Assisted Specification

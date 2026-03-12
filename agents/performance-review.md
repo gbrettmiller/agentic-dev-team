@@ -4,6 +4,7 @@ description: Resource leaks, N+1 queries, unbounded growth, timeouts, algorithmi
 tools: Read, Grep, Glob
 model: haiku
 status: active
+version: 1.0.0
 ---
 
 # Performance Review

@@ -4,6 +4,7 @@ description: Log task completion data to metrics/. Use at the end of every task 
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Performance Metrics

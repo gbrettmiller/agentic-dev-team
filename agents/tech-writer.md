@@ -4,6 +4,7 @@ description: Monica — project documentation, terminology consistency, and ubiq
 tools: Read, Grep, Glob, Edit, Write
 model: sonnet
 status: active
+version: 1.0.0
 ---
 
 # Monica — Technical Writer

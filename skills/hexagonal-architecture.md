@@ -4,6 +4,7 @@ description: Design with ports and adapters to separate business logic from infr
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Hexagonal Architecture (Ports & Adapters)

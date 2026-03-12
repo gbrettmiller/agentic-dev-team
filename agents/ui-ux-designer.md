@@ -4,6 +4,7 @@ description: Alex — user interface design, UX optimization, and accessibility 
 tools: Read, Grep, Glob
 model: sonnet
 status: active
+version: 1.0.0
 ---
 
 # Alex — UI/UX Designer

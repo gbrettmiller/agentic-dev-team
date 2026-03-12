@@ -4,6 +4,7 @@ description: Bobbi — threat modeling, security analysis, vulnerability assessm
 tools: Read, Grep, Glob, Bash
 model: opus
 status: active
+version: 1.0.0
 ---
 
 # Bobbi — Security Engineer

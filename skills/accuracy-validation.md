@@ -4,6 +4,7 @@ description: Apply before delivering any output. Detects hallucinations, scores 
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Accuracy Validation

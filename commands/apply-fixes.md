@@ -152,7 +152,22 @@ Total: N | Applied: N | Skipped: N | Failed: N | Validation Failed: N
 
 Move successfully applied prompt files to a `completed/` subdirectory.
 
-### 6. Suggest alternatives
+### 6. Bump agent version if behavior changed
+
+If any applied fix modifies an **agent or skill file** (files in
+`agents/` or `skills/`), determine the change type and bump its
+`version:` frontmatter field:
+
+- Detection rule added or removed → **minor** bump (`x.1.0`)
+- Output format, required section, or severity threshold changed → **major** bump (`2.0.0`)
+- Wording clarification only, no behavioral change → **patch** bump (`x.x.1`)
+
+After bumping the frontmatter version, update the corresponding
+registry manifest (`registry/agents/<name>.json` or
+`registry/skills/<name>.json`) to match — frontmatter is the single
+source of truth; the registry reflects it.
+
+### 7. Suggest alternatives
 
 For structural issues (long functions, duplication, deep nesting,
 unclear names), the

@@ -4,6 +4,7 @@ description: Structured STRIDE security analysis for identifying threats, attack
 role: worker
 user-invocable: true
 status: active
+version: 1.0.0
 ---
 
 # Threat Modeling
