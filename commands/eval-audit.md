@@ -166,7 +166,27 @@ Read each file in `.claude/hooks/*.sh` and check:
    - Hooks SHOULD only run on relevant file types
    - WARN if no file type filter is present
 
-### 5. Generate report
+### 5. Audit registry
+
+For each agent file in `agents/*.md`:
+
+1. **Registry entry exists**: Does `registry/agents/<name>.json` exist?
+   - FAIL if a review agent has no registry entry
+   - WARN if a team agent has no registry entry
+
+2. **Index entry**: Is the agent present in `registry/index.json` `entries`?
+   - WARN if the manifest exists but the agent is absent from the index
+
+3. **Required fields**: Does the manifest have all required fields?
+   - MUST have: `id`, `version`, `lifecycle`, `type`, `model`, `description`,
+     `owners`, `artifacts.source`
+   - FAIL if any required field is missing
+
+4. **Lifecycle consistency**: Is the agent routable?
+   - WARN if `lifecycle` is `deprecated` or `retired` — flag for human review
+     to confirm the agent has been removed from routing
+
+### 6. Generate report
 
 ```text
 # Eval Audit Report
@@ -199,7 +219,7 @@ Read each file in `.claude/hooks/*.sh` and check:
 - Action items: [list of things to fix]
 ```
 
-### 6. Apply fixes (when `--fix` is passed)
+### 7. Apply fixes (when `--fix` is passed)
 
 If `--fix` was NOT passed, list action items and stop.
 
@@ -248,7 +268,7 @@ item:
 2. Re-run the specific check to verify it now passes
 3. Report: `FIXED: <agent/skill> — <what was fixed>`
 
-### 7. Fix summary
+### 8. Fix summary
 
 If `--fix` was used, append a fix summary after the audit report:
 

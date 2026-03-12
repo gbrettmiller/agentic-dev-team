@@ -1,0 +1,15 @@
+{
+  "id": "agents/architect",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "team-agent",
+  "model": "opus",
+  "description": "Naomi — system design, architecture definition, and technical decision oversight",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/architect.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

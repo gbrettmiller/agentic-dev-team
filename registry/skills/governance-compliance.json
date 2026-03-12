@@ -1,0 +1,15 @@
+{
+  "id": "skills/governance-compliance",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Audit logging, quality gates, and ethics procedures for the agent team",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/governance-compliance.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

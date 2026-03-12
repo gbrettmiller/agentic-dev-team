@@ -1,0 +1,15 @@
+{
+  "id": "commands/add-plugin",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "command",
+  "model": null,
+  "description": "Install a Claude Code plugin and register it in settings.json so the full team can replicate the install",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "commands/add-plugin.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

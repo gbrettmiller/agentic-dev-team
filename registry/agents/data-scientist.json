@@ -1,0 +1,15 @@
+{
+  "id": "agents/data-scientist",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "team-agent",
+  "model": "opus",
+  "description": "Prax — machine learning model development, data analysis, and statistical validation",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/data-scientist.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

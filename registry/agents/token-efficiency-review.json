@@ -1,0 +1,15 @@
+{
+  "id": "agents/token-efficiency-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "haiku",
+  "description": "Token usage optimization, file length, CLAUDE.md size, LLM anti-patterns",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/token-efficiency-review.md",
+    "fixture-prefix": "te-",
+    "evals": "evals/fixtures",
+    "expected": "evals/expected"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "skills/mutation-testing",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Validate test suite quality by injecting mutants and checking whether tests detect them",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/mutation-testing.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

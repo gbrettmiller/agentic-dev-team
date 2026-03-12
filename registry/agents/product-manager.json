@@ -1,0 +1,15 @@
+{
+  "id": "agents/product-manager",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "team-agent",
+  "model": "sonnet",
+  "description": "Holden — requirements clarification, priority management, and stakeholder alignment",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/product-manager.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

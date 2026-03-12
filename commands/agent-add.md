@@ -148,7 +148,35 @@ frontier→opus.
 Run `/eval-audit .claude/agents/<name>.md --fix` to validate compliance.
 If any checks fail after auto-fix, report the remaining issues.
 
-### 7. Update CLAUDE.md
+### 7. Create registry entry
+
+Create `registry/agents/<name>.json`:
+
+```json
+{
+  "id": "agents/<name>",
+  "version": "0.1.0",
+  "lifecycle": "draft",
+  "type": "review-agent",
+  "model": "<haiku|sonnet|opus>",
+  "description": "<one-line summary from agent frontmatter>",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/<name>.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}
+```
+
+New agents start at `version: 0.1.0` and `lifecycle: draft`. Promote to
+`version: 1.0.0` / `lifecycle: active` after eval validation passes.
+
+Add an entry to `registry/index.json` in the `entries` array, maintaining
+alphabetical order within the `review-agent` group.
+
+### 8. Update CLAUDE.md
 
 Add a row to the Review Agents table in `.claude/CLAUDE.md`, inserted
 alphabetically by agent name:
@@ -160,7 +188,7 @@ alphabetically by agent name:
 Also add an entry to the Orchestrator Model Routing Table if the new
 agent's tier or name warrants a distinct row.
 
-### 8. Update docs/agent_info.md
+### 9. Update docs/agent_info.md
 
 Add a row to the Review Agents table in `docs/agent_info.md`, inserted
 alphabetically by agent name:
@@ -169,20 +197,22 @@ alphabetically by agent name:
 | `<name>` | [`<name>.md`](../.claude/agents/<name>.md) | <model> | <short focus description> |
 ```
 
-### 9. Update docs/team-structure.md
+### 10. Update docs/team-structure.md
 
 Add the new review agent to the Review Agent Dispatch Mermaid diagram
 under the appropriate trigger condition. If no existing trigger matches,
 add a new edge from `CO[Orchestrator]` to the new agent node.
 
-### 10. Report
+### 11. Report
 
 ```text
 Agent created: .claude/agents/<name>.md
 Model tier: <tier>
 Context needs: <context>
 Eval audit: PASS|WARN (details)
+Registry: registry/agents/<name>.json (draft)
 Documentation updated:
+  - registry/index.json
   - .claude/CLAUDE.md (Review Agents table)
   - docs/agent_info.md (Review Agents table)
   - docs/team-structure.md (dispatch diagram)

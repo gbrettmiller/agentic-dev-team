@@ -1,0 +1,15 @@
+{
+  "id": "agents/svelte-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "sonnet",
+  "description": "Svelte reactivity pitfalls, closure state leaks, $state proxy issues, store subscription leaks",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/svelte-review.md",
+    "fixture-prefix": "sv-",
+    "evals": "evals/fixtures",
+    "expected": "evals/expected"
+  }
+}

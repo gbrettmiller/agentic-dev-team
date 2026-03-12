@@ -1,0 +1,15 @@
+{
+  "id": "agents/security-engineer",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "team-agent",
+  "model": "opus",
+  "description": "Bobbi — threat modeling, security analysis, vulnerability assessment, and secure design guidance",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/security-engineer.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

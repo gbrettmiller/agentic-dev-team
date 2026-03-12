@@ -1,0 +1,15 @@
+{
+  "id": "commands/eval-audit",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "command",
+  "model": null,
+  "description": "Audit agents, skills, and hooks for structural compliance against eval system patterns",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "commands/eval-audit.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

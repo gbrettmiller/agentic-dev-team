@@ -1,0 +1,15 @@
+{
+  "id": "agents/arch-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "opus",
+  "description": "Architectural alignment — ADR compliance, layer boundary violations, dependency direction, pattern consistency",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/arch-review.md",
+    "fixture-prefix": "ar-",
+    "evals": "evals/fixtures",
+    "expected": "evals/expected"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "agents/software-engineer",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "team-agent",
+  "model": "opus",
+  "description": "Amos — full-stack development, code generation, implementation, and refactoring",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/software-engineer.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

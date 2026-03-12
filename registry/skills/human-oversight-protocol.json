@@ -1,0 +1,15 @@
+{
+  "id": "skills/human-oversight-protocol",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Approval gates, intervention commands, and transparency requirements for human-in-the-loop governance",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/human-oversight-protocol.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

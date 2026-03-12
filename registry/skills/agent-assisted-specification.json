@@ -1,0 +1,15 @@
+{
+  "id": "skills/agent-assisted-specification",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Produce intent, BDD scenarios, architecture notes, and acceptance criteria before implementation begins",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/agent-assisted-specification.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

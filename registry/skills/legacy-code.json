@@ -1,0 +1,15 @@
+{
+  "id": "skills/legacy-code",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Safely modify code that lacks tests using characterization tests and dependency-breaking techniques",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/legacy-code.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

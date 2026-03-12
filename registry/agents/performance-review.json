@@ -1,0 +1,15 @@
+{
+  "id": "agents/performance-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "haiku",
+  "description": "Resource leaks, N+1 queries, unbounded growth, timeouts, algorithmic issues",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/performance-review.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "commands/agent-remove",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "command",
+  "model": null,
+  "description": "Remove an agent from the system — deletes the agent file, cleans up registry entries, removes cross-references, and updates documentation",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "commands/agent-remove.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

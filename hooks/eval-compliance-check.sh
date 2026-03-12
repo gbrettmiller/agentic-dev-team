@@ -82,6 +82,13 @@ if [ "$FILE_TYPE" = "agent" ]; then
     warn "$AGENT_NAME: Missing 'Context needs' field (must be diff-only, full-file, or project-structure)."
   fi
 
+  # 10. Registry entry (WARN)
+  REPO_ROOT=$(dirname "$(dirname "$FILE_PATH")")
+  REGISTRY_ENTRY="${REPO_ROOT}/registry/agents/${AGENT_NAME}.json"
+  if ! [ -f "$REGISTRY_ENTRY" ]; then
+    warn "$AGENT_NAME: Missing registry entry (expected registry/agents/${AGENT_NAME}.json). Create it or run /agent-add."
+  fi
+
   # 6. File scope for language-specific agents (WARN)
   if echo "$CONTENT" | grep -qiE 'javascript\|typescript\|python\|ruby\|go\|rust\|java'; then
     if ! echo "$CONTENT" | grep -qiE 'scope:|\.js\b|\.ts\b|\.py\b|\.rb\b|\.go\b|\.rs\b|\.java\b|files only'; then

@@ -1,0 +1,15 @@
+{
+  "id": "agents/devops-sre-engineer",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "team-agent",
+  "model": "sonnet",
+  "description": "Drummer — pipeline design, deployment strategy, observability, and reliability planning",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/devops-sre-engineer.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

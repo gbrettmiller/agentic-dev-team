@@ -1,0 +1,15 @@
+{
+  "id": "commands/agent-add",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "command",
+  "model": null,
+  "description": "Scaffold a new review agent from a description or URL, with eval compliance and doc updates",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "commands/agent-add.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

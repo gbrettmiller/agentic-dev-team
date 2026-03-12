@@ -1,0 +1,15 @@
+{
+  "id": "agents/naming-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "haiku",
+  "description": "Naming clarity, conventions, magic values, and consistency",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/naming-review.md",
+    "fixture-prefix": "nm-",
+    "evals": "evals/fixtures",
+    "expected": "evals/expected"
+  }
+}

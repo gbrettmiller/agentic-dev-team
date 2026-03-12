@@ -1,0 +1,15 @@
+{
+  "id": "agents/claude-setup-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "haiku",
+  "description": "CLAUDE.md completeness, rules, skills, and path accuracy",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/claude-setup-review.md",
+    "fixture-prefix": "cs-",
+    "evals": "evals/fixtures",
+    "expected": "evals/expected"
+  }
+}

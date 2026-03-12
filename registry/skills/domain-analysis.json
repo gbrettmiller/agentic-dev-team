@@ -1,0 +1,15 @@
+{
+  "id": "skills/domain-analysis",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Strategic DDD health assessment of an existing system — bounded contexts, coupling, event flows, friction report",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/domain-analysis.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

@@ -71,6 +71,8 @@ Files to delete:
   - .claude/evals/expected/<name>-* (if any)
 
 Registry entries to remove:
+  - registry/agents/<name>.json
+  - registry/index.json: entry with id "agents/<name>"
   - .claude/CLAUDE.md: <table row>
   [team agents only]
   - docs/team-structure.md: <diagram node and edges>
@@ -106,7 +108,14 @@ ls .claude/evals/expected/ | grep <name>
 
 Remove each matching file with `git rm` (or `rm` if not in git).
 
-### 6. Update .claude/CLAUDE.md
+### 6. Remove registry entry
+
+Delete `registry/agents/<name>.json` with `git rm` (or `rm` if not in git).
+
+Remove the corresponding entry from the `entries` array in
+`registry/index.json`.
+
+### 7. Update .claude/CLAUDE.md
 
 - Remove the agent's row from the appropriate table (Team Agents or
   Review Agents)
@@ -114,13 +123,13 @@ Remove each matching file with `git rm` (or `rm` if not in git).
   an explicit row
 - Remove the agent from the Slash Commands Registry if listed
 
-### 7. Update .claude/agents/orchestrator.md (team agents only)
+### 8. Update .claude/agents/orchestrator.md (team agents only)
 
 - Remove from the Model Routing Table if explicitly listed
 - Remove from the Inline Review Checkpoint table (if listed as a
   triggered agent)
 
-### 8. Update cross-references in other agent files
+### 9. Update cross-references in other agent files
 
 Search for references to the removed agent:
 
@@ -132,13 +141,13 @@ For each file found, remove or update:
 - Collaboration protocol entries that name the removed agent
 - Skills section references (if a team agent was referenced as a skill)
 
-### 9. Update docs/agent_info.md
+### 10. Update docs/agent_info.md
 
 - Remove the agent's row from the Team Agents or Review Agents table
 - If removing a team agent, remove any "Primary Collaborators" references
   in prose sections
 
-### 10. Update docs/team-structure.md (team agents only)
+### 11. Update docs/team-structure.md (team agents only)
 
 Remove the agent node and all its edges from both Mermaid diagrams.
 
@@ -146,7 +155,7 @@ Example: removing `SecE[Security Engineer]`:
 - Remove the node declaration line
 - Remove all edges involving `SecE` (`SecE <--> AR`, `SecE <--> QA`, etc.)
 
-### 11. Tech-writer review
+### 12. Tech-writer review
 
 Invoke the tech-writer persona to review all modified documentation files
 for accuracy and consistency before reporting completion. Specifically check:
@@ -155,16 +164,18 @@ for accuracy and consistency before reporting completion. Specifically check:
 - Tables are consistent across CLAUDE.md and docs/
 - Mermaid diagrams render correctly (no orphaned edges)
 
-### 12. Report
+### 13. Report
 
 ```text
 Agent removed: <name> (<type>)
 
 Deleted:
   - .claude/agents/<name>.md
+  - registry/agents/<name>.json
   [+ eval files if any]
 
 Updated:
+  - registry/index.json
   - .claude/CLAUDE.md
   - docs/agent_info.md
   [+ orchestrator.md, team-structure.md, cross-references as applicable]

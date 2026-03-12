@@ -1,0 +1,15 @@
+{
+  "id": "commands/review-summary",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "command",
+  "model": null,
+  "description": "Generate a compact summary of the most recent code review results and save it for future sessions",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "commands/review-summary.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

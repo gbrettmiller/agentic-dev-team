@@ -1,0 +1,15 @@
+{
+  "id": "agents/domain-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "opus",
+  "description": "Domain boundaries, abstraction leaks, business logic placement",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/domain-review.md",
+    "fixture-prefix": "dm-",
+    "evals": "evals/fixtures",
+    "expected": "evals/expected"
+  }
+}

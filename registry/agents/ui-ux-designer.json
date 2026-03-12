@@ -1,0 +1,15 @@
+{
+  "id": "agents/ui-ux-designer",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "team-agent",
+  "model": "sonnet",
+  "description": "Alex — user interface design, UX optimization, and accessibility compliance",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/ui-ux-designer.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "agents/security-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "opus",
+  "description": "Injection, auth/authz, data exposure, security headers, crypto",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/security-review.md",
+    "fixture-prefix": "sec-",
+    "evals": "evals/fixtures",
+    "expected": "evals/expected"
+  }
+}

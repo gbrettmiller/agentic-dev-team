@@ -1,0 +1,15 @@
+{
+  "id": "agents/tech-writer",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "team-agent",
+  "model": "sonnet",
+  "description": "Monica — project documentation, terminology consistency, and ubiquitous language enforcement",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/tech-writer.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

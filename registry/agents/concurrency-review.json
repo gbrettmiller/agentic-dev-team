@@ -1,0 +1,15 @@
+{
+  "id": "agents/concurrency-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "sonnet",
+  "description": "Race conditions, async pitfalls, idempotency, shared state safety",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/concurrency-review.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "skills/domain-driven-design",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Model software around the business domain — bounded contexts, aggregates, context maps, business logic",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/domain-driven-design.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

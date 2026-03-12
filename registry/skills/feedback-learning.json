@@ -1,0 +1,15 @@
+{
+  "id": "skills/feedback-learning",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Capture amend/learn/remember/forget keywords and update agent or skill configurations with audit trail",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/feedback-learning.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

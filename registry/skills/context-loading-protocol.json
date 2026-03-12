@@ -1,0 +1,15 @@
+{
+  "id": "skills/context-loading-protocol",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Select minimum viable context load for a given task and stay below the 40% utilization ceiling",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/context-loading-protocol.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

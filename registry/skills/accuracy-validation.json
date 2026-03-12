@@ -1,0 +1,15 @@
+{
+  "id": "skills/accuracy-validation",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Detect hallucinations, score output confidence, and trigger corrections before delivering any output",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/accuracy-validation.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

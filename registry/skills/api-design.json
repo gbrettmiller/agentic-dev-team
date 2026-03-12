@@ -1,0 +1,15 @@
+{
+  "id": "skills/api-design",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Contract-first API design for stable, evolvable interfaces with backward compatibility checklist",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/api-design.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

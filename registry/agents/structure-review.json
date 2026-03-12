@@ -1,0 +1,15 @@
+{
+  "id": "agents/structure-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "sonnet",
+  "description": "SRP violations, DRY, coupling, nesting depth, file organization",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/structure-review.md",
+    "fixture-prefix": "st-",
+    "evals": "evals/fixtures",
+    "expected": "evals/expected"
+  }
+}

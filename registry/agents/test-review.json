@@ -1,0 +1,15 @@
+{
+  "id": "agents/test-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "sonnet",
+  "description": "Test quality, coverage gaps, assertion quality, and test hygiene",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/test-review.md",
+    "fixture-prefix": "test-",
+    "evals": "evals/fixtures",
+    "expected": "evals/expected"
+  }
+}

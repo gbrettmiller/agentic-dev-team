@@ -1,0 +1,15 @@
+{
+  "id": "skills/agent-skill-authoring",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Create and maintain agent and skill files, including required CLAUDE.md registration",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/agent-skill-authoring.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

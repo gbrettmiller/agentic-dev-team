@@ -1,0 +1,15 @@
+{
+  "id": "agents/qa-engineer",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "team-agent",
+  "model": "sonnet",
+  "description": "Peaches — acceptance test driven development, test generation, quality metrics, and regression testing",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/qa-engineer.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "skills/performance-metrics",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Log task completion data to metrics/ for tokens, cost, agents used, rework cycles, and hallucination events",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/performance-metrics.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

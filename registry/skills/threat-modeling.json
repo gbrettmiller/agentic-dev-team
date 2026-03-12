@@ -1,0 +1,15 @@
+{
+  "id": "skills/threat-modeling",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Structured STRIDE security analysis for identifying threats, attack surfaces, and mitigations",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/threat-modeling.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

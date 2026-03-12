@@ -1,0 +1,15 @@
+{
+  "id": "agents/js-fp-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "sonnet",
+  "description": "Array mutations, parameter mutations, global state, impure patterns in JS/TS",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/js-fp-review.md",
+    "fixture-prefix": "fp-",
+    "evals": "evals/fixtures",
+    "expected": "evals/expected"
+  }
+}

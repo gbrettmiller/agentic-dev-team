@@ -1,0 +1,15 @@
+{
+  "id": "commands/semgrep-analyze",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "command",
+  "model": null,
+  "description": "Run Semgrep static analysis on target files and return structured SAST findings",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "commands/semgrep-analyze.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

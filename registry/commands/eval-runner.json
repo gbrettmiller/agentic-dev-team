@@ -1,0 +1,15 @@
+{
+  "id": "commands/eval-runner",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "command",
+  "model": null,
+  "description": "Run eval fixtures against review agents, grade results, and detect regressions",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "commands/eval-runner.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

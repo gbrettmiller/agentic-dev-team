@@ -1,0 +1,15 @@
+{
+  "id": "agents/complexity-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "haiku",
+  "description": "Cyclomatic complexity, nesting depth, function size, parameter count",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/complexity-review.md",
+    "fixture-prefix": "cx-",
+    "evals": "evals/fixtures",
+    "expected": "evals/expected"
+  }
+}

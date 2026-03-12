@@ -1,0 +1,15 @@
+{
+  "id": "commands/code-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "command",
+  "model": null,
+  "description": "Run all enabled review agents against target files with pre-flight gates and structured output",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "commands/code-review.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

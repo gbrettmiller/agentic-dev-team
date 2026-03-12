@@ -1,0 +1,15 @@
+{
+  "id": "commands/review-agent",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "command",
+  "model": null,
+  "description": "Run a single named review agent against target files for focused, fast feedback",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "commands/review-agent.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

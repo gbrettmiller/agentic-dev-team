@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "title": "Agent/Skill Manifest",
+  "description": "Machine-readable manifest for agentic-dev-team agents, skills, and commands",
+  "type": "object",
+  "required": ["id", "version", "lifecycle", "type", "model", "description", "owners", "artifacts"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(agents|skills|commands)/[a-z][a-z0-9-]*$",
+      "description": "Kebab-case path-based identifier"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version"
+    },
+    "lifecycle": {
+      "type": "string",
+      "enum": ["draft", "active", "deprecated", "retired"],
+      "description": "Lifecycle state"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["team-agent", "review-agent", "skill", "command"],
+      "description": "Artifact type"
+    },
+    "model": {
+      "type": ["string", "null"],
+      "enum": ["haiku", "sonnet", "opus", null],
+      "description": "Assigned model tier; null for skills and commands"
+    },
+    "description": {
+      "type": "string",
+      "description": "One-line summary of what this artifact does"
+    },
+    "owners": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Responsible maintainers"
+    },
+    "artifacts": {
+      "type": "object",
+      "required": ["source"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "Repo-root-relative path to the source file"
+        },
+        "fixture-prefix": {
+          "type": ["string", "null"],
+          "description": "Eval fixture filename prefix for review agents (e.g. 'sec-'). Null if no fixtures exist."
+        },
+        "evals": {
+          "type": ["string", "null"],
+          "description": "Path to eval fixtures directory"
+        },
+        "expected": {
+          "type": ["string", "null"],
+          "description": "Path to eval expected outputs directory"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,15 @@
+{
+  "id": "agents/a11y-review",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "review-agent",
+  "model": "sonnet",
+  "description": "WCAG 2.1 AA compliance, semantic HTML, ARIA, keyboard navigation, focus management",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "agents/a11y-review.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}

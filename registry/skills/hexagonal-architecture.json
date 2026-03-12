@@ -1,0 +1,15 @@
+{
+  "id": "skills/hexagonal-architecture",
+  "version": "1.0.0",
+  "lifecycle": "active",
+  "type": "skill",
+  "model": null,
+  "description": "Design with ports and adapters to separate business logic from infrastructure",
+  "owners": ["gbrett"],
+  "artifacts": {
+    "source": "skills/hexagonal-architecture.md",
+    "fixture-prefix": null,
+    "evals": null,
+    "expected": null
+  }
+}
