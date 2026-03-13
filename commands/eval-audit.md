@@ -191,6 +191,11 @@ For each agent file in `agents/*.md`:
      fixtures exist (no files matching `fixture-prefix` in `evals/fixtures/`)
    - Draft agents should not be promoted to `active` until evals pass
 
+6. **Dependency graph**: Run `scripts/dependency-graph.sh --check` and surface results:
+   - FAIL if any circular dependency is detected (a skill/agent that depends on itself transitively)
+   - WARN for each skill with no `used-by` entries (orphaned knowledge)
+   - WARN if an agent declares a `depends-on:` entry that doesn't resolve to a known agent or skill file
+
 ### 6. Audit policy compliance
 
 For each agent file in `agents/*.md`, check org-level and domain-level policy conformance as defined in `skills/governance-compliance.md`:

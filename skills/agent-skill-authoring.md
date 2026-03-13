@@ -115,6 +115,18 @@ New agents start at `0.1.0` (`status: draft`). Promote to `1.0.0` when `status: 
 
 The `eval-compliance-check.sh` hook will remind you after every agent or skill edit.
 
+### Optional Frontmatter: `depends-on`
+
+Agents and skills may declare explicit dependencies on other agents or skills using `depends-on:`. This enables the dependency graph script to detect circular dependencies and identify orphaned skills.
+
+```yaml
+depends-on:
+  - skills/accuracy-validation
+  - skills/governance-compliance
+```
+
+Values are registry-relative paths (same format as `artifacts.source` in registry manifests). The `scripts/dependency-graph.sh` script reads these fields and can emit a Mermaid or DOT graph, update registry manifests with `used-by:` arrays, and flag cycles. Run it with `--check` to use as a CI gate.
+
 ### Optional Frontmatter: `adr-links`
 
 Agents and skills may include an `adr-links:` frontmatter field listing ADR file paths that motivated their design. This creates machine-readable provenance from specification to implementation.
