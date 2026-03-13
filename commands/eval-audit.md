@@ -191,7 +191,27 @@ For each agent file in `agents/*.md`:
      fixtures exist (no files matching `fixture-prefix` in `evals/fixtures/`)
    - Draft agents should not be promoted to `active` until evals pass
 
-### 6. Generate report
+### 6. Audit policy compliance
+
+For each agent file in `agents/*.md`, check org-level and domain-level policy conformance as defined in `skills/governance-compliance.md`:
+
+1. **Lifecycle policy** (org level):
+   - FAIL if agent invokes or references a `deprecated` or `retired` agent in its body
+   - This is distinct from the registry lifecycle check — this catches prose references
+
+2. **Review agent output constraint** (domain level):
+   - FAIL if a review agent's body contains file-write instructions (review agents must never modify files)
+   - Flag patterns like: Edit, Write, Bash with write operations
+
+3. **Policy block exemptions** (contract level):
+   - Read the agent's `policy.exemptions:` frontmatter array if present
+   - WARN for each exemption entry that does not have a corresponding inline comment with rationale and approver
+   - WARN if `policy.audit: false` — all agents must be auditable
+
+4. **Skills compliance** (domain level):
+   - WARN if a skill file contains persona or role-specific language that should live in an agent instead
+
+### 7. Generate report
 
 ```text
 # Eval Audit Report
@@ -224,7 +244,7 @@ For each agent file in `agents/*.md`:
 - Action items: [list of things to fix]
 ```
 
-### 7. Apply fixes (when `--fix` is passed)
+### 8. Apply fixes (when `--fix` is passed)
 
 If `--fix` was NOT passed, list action items and stop.
 
@@ -273,7 +293,7 @@ item:
 2. Re-run the specific check to verify it now passes
 3. Report: `FIXED: <agent/skill> — <what was fixed>`
 
-### 8. Fix summary
+### 9. Fix summary
 
 If `--fix` was used, append a fix summary after the audit report:
 

@@ -116,6 +116,61 @@ No task output is delivered until it passes applicable quality gates:
 ## Output
 Compliance checklist results (pass/fail per item) and/or new audit log entries written to `metrics/`. Be concise — report failures and entries written; omit passing items.
 
+## Policy Hierarchy
+
+Governance policies are applied at three levels. Lower levels may override higher levels only via explicit, documented exemptions.
+
+### Org Level (applies to all agents)
+
+These constraints are non-negotiable. No agent may operate outside them.
+
+| Policy | Requirement |
+| --- | --- |
+| Audit | Every agent invocation that modifies files or state must be logged |
+| Data handling | No credentials, API keys, or PII in `metrics/` or `memory/` |
+| Explainability | Every agent decision must be explainable on request |
+| Lifecycle | Agents with `status: deprecated` or `status: retired` must not be invoked |
+| Human escalation | Ethical concerns are never auto-resolved |
+
+### Domain Level (applies to agent categories)
+
+| Category | Additional Constraints |
+| --- | --- |
+| Review agents | Must return structured JSON output; may not modify files |
+| Team agents | May modify files only within task scope; must respect pre-tool-guard.sh |
+| Skills | No persona or orchestration logic; must be agent-agnostic |
+| Commands | Must declare a `role:` (orchestrator/worker/implementation) |
+
+### Contract Level (agent-specific overrides)
+
+Individual agents may declare a `policy:` block in their frontmatter to document contract-level settings or approved exemptions:
+
+```yaml
+policy:
+  audit: true
+  data-retention: session-only
+  exemptions: []
+```
+
+| Field | Values | Default |
+| --- | --- | --- |
+| `audit` | `true` / `false` | `true` |
+| `data-retention` | `session-only` / `task-log` / `indefinite` | `session-only` |
+| `exemptions` | List of org/domain policy keys being overridden | `[]` |
+
+### Exemption Process
+
+Any `exemptions:` entry must be justified. For each exemption:
+
+1. Add the policy key to the agent's `exemptions:` list
+2. Add a comment immediately below explaining the rationale and naming the approver:
+   ```yaml
+   exemptions:
+     - data-retention  # retains task output for cross-session continuity; approved: gbrett 2026-03-01
+   ```
+3. Log the exemption in `metrics/config-changelog.jsonl` with `type: "agent-change"` and `rationale` field
+4. `/eval-audit` will WARN on any exemption lacking a rationale comment
+
 ## Compliance Checklist
 
 For periodic review (monthly recommended):
@@ -127,3 +182,5 @@ For periodic review (monthly recommended):
 - [ ] Hallucination rate is within target (< 5%)
 - [ ] Rework rate trend is stable or improving
 - [ ] All human overrides have been reviewed for systemic issues
+- [ ] All agents with `exemptions:` have documented rationale and approver
+- [ ] No deprecated or retired agents referenced in routing tables
