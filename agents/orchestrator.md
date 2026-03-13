@@ -36,6 +36,19 @@ The orchestrator is the **authoritative source for model selection**. When spawn
 
 **Lifecycle filter**: Before routing to any agent, check its `status:` frontmatter field. Skip agents with `status: deprecated` or `status: retired` — they must not be invoked. If a required agent is deprecated, escalate to the user before proceeding.
 
+**Pre-execution contract validation**: Before spawning any agent via the Agent tool, verify:
+1. The agent's registry entry (`registry/agents/<name>.json`) exists and has `lifecycle: active`
+2. The agent's `version:` frontmatter matches the registry manifest `version` — a mismatch means a sync error; halt and report it
+3. If the agent declares a `policy:` block, verify no org-level policy is violated (see `skills/governance-compliance.md`)
+
+If any check fails, do not spawn the agent. Report the violation and escalate to the user.
+
+**Invocation logging**: After each agent invocation (whether it succeeds or fails), append a line to `metrics/invocation-log.jsonl`:
+```json
+{"timestamp": "ISO8601", "agent": "agents/<name>", "version": "x.y.z", "model": "<model>", "task_id": "<task-or-session-id>", "status": "success|fail|skipped", "reason": "<optional: why skipped or failed>"}
+```
+This log is the runtime audit trail. It is append-only and must not be edited.
+
 | Agent / Task Class | Model | Rationale |
 |---|---|---|
 | naming-review, complexity-review, claude-setup-review, token-efficiency-review, performance-review | `haiku` | Pattern-matching, deterministic, low context |
