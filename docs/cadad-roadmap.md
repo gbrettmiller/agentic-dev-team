@@ -30,8 +30,8 @@ C-DAD's core argument: for AI to function as a dependable collaborator, software
 
 **Tasks**:
 
-- [ ] Create `registry/` directory at repo root
-- [ ] Define a JSON schema for agent/skill manifests (`registry/schema.json`) with required fields:
+- [x] Create `registry/` directory at repo root
+- [x] Define a JSON schema for agent/skill manifests (`registry/schema.json`) with required fields:
   - `id` — kebab-case unique identifier (e.g., `agents/security-review`)
   - `version` — semantic version (e.g., `1.2.0`)
   - `lifecycle` — one of `draft | active | deprecated | retired`
@@ -40,10 +40,10 @@ C-DAD's core argument: for AI to function as a dependable collaborator, software
   - `artifacts` — paths to agent/skill file, evals, expected outputs
   - `description` — one-line summary of what it does
   - `owners` — team or individual responsible for maintaining it
-- [ ] Generate initial manifests for all existing agents and skills
-- [ ] Update `/agent-add` and `/agent-remove` commands to maintain the registry automatically
-- [ ] Update `/eval-audit` to validate that all agents in `.claude/agents/` have corresponding registry entries
-- [ ] Add a registry validation step to the `eval-compliance-check.sh` hook
+- [x] Generate initial manifests for all existing agents and skills
+- [x] Update `/agent-add` and `/agent-remove` commands to maintain the registry automatically
+- [x] Update `/eval-audit` to validate that all agents in `.claude/agents/` have corresponding registry entries
+- [x] Add a registry validation step to the `eval-compliance-check.sh` hook
 
 **Example manifest** (`registry/agents/security-review.json`):
 ```json
@@ -71,15 +71,15 @@ C-DAD's core argument: for AI to function as a dependable collaborator, software
 
 **Tasks**:
 
-- [ ] Add `status:` field to agent and skill frontmatter: `draft | active | deprecated | retired`
-- [ ] Set all existing agents to `status: active`
-- [ ] Update the agent template in `docs/agent_info.md` and `skills/agent-skill-authoring.md` to require `status:` in frontmatter
-- [ ] Update `/agent-add` to default new agents to `status: draft` with a note to promote to `active` after eval validation passes
-- [ ] Update `/agent-remove` to offer deprecation as an alternative to deletion:
+- [x] Add `status:` field to agent and skill frontmatter: `draft | active | deprecated | retired`
+- [x] Set all existing agents to `status: active`
+- [x] Update the agent template in `docs/agent_info.md` and `skills/agent-skill-authoring.md` to require `status:` in frontmatter
+- [x] Update `/agent-add` to default new agents to `status: draft` with a note to promote to `active` after eval validation passes
+- [x] Update `/agent-remove` to offer deprecation as an alternative to deletion:
   - Deprecation sets `status: deprecated` in frontmatter and registry, adds a `deprecated-by:` link if a replacement exists, and removes the agent from active routing without deleting the file
   - Deletion remains available but requires explicit confirmation
-- [ ] Update the Orchestrator's routing logic to skip agents with `status: deprecated` or `status: retired`
-- [ ] Update `/eval-audit` to flag `draft` agents that have no eval fixtures
+- [x] Update the Orchestrator's routing logic to skip agents with `status: deprecated` or `status: retired`
+- [x] Update `/eval-audit` to flag `draft` agents that have no eval fixtures
 
 ---
 
@@ -89,14 +89,14 @@ C-DAD's core argument: for AI to function as a dependable collaborator, software
 
 **Tasks**:
 
-- [ ] Add `version:` field to all agent and skill frontmatter (start everything at `1.0.0`)
-- [ ] Define versioning rules in `skills/agent-skill-authoring.md`:
+- [x] Add `version:` field to all agent and skill frontmatter (start everything at `1.0.0`)
+- [x] Define versioning rules in `skills/agent-skill-authoring.md`:
   - **Patch** (`x.x.1`): clarifications, typo fixes, no behavioral change
   - **Minor** (`x.1.0`): new capability added, backwards-compatible
   - **Major** (`2.0.0`): output format changes, required section changes, breaking behavioral change
-- [ ] Update `/agent-add` scaffolding to start new agents at `0.1.0` (draft) or `1.0.0` (active)
-- [ ] Add a version bump step to the `/apply-fixes` workflow when corrections change agent behavior
-- [ ] Update the registry manifest to mirror the version from frontmatter (single source of truth: frontmatter; registry reflects it)
+- [x] Update `/agent-add` scaffolding to start new agents at `0.1.0` (draft) or `1.0.0` (active)
+- [x] Add a version bump step to the `/apply-fixes` workflow when corrections change agent behavior
+- [x] Update the registry manifest to mirror the version from frontmatter (single source of truth: frontmatter; registry reflects it)
 
 ---
 
@@ -106,16 +106,16 @@ C-DAD's core argument: for AI to function as a dependable collaborator, software
 
 **Tasks**:
 
-- [ ] Extend `metrics/config-changelog.jsonl` schema to cover agent and skill file changes (not just config), with fields:
+- [x] Extend `metrics/config-changelog.jsonl` schema to cover agent and skill file changes (not just config), with fields:
   - `artifact` — path to the changed file
   - `version-before` / `version-after`
   - `change-type` — `patch | minor | major`
   - `rationale` — why the change was made
   - `triggered-by` — user request, eval failure, feedback keyword, or ADR reference
   - `approved-by` — human who reviewed (if applicable)
-- [ ] Update `eval-compliance-check.sh` hook: when an agent or skill file is edited, emit a prompt asking the agent to log the change to the changelog with rationale
-- [ ] Update `skills/agent-skill-authoring.md` to require a changelog entry for every agent/skill modification
-- [ ] Add an `adr-links:` optional frontmatter field so agents can reference the ADR that motivated their design
+- [x] Update `eval-compliance-check.sh` hook: when an agent or skill file is edited, emit a prompt asking the agent to log the change to the changelog with rationale
+- [x] Update `skills/agent-skill-authoring.md` to require a changelog entry for every agent/skill modification
+- [x] Add an `adr-links:` optional frontmatter field so agents can reference the ADR that motivated their design
 
 ---
 
@@ -125,19 +125,19 @@ C-DAD's core argument: for AI to function as a dependable collaborator, software
 
 **Tasks**:
 
-- [ ] Define a three-level policy hierarchy in `skills/governance-compliance.md`:
+- [x] Define a three-level policy hierarchy in `skills/governance-compliance.md`:
   - **Org level** — applies to all agents (data handling, audit requirements, ethics constraints)
   - **Domain level** — applies to agent categories (review agents, team agents, skills)
   - **Contract level** — agent-specific overrides or exemptions
-- [ ] Add a `policy:` block to agent frontmatter for contract-level overrides:
+- [x] Add a `policy:` block to agent frontmatter for contract-level overrides:
   ```yaml
   policy:
     audit: true
     data-retention: session-only
     exemptions: []
   ```
-- [ ] Update `/eval-audit` to check that agents do not implicitly violate org-level policies
-- [ ] Document the exemption process: any `exemptions:` entry must include a rationale and an approver reference
+- [x] Update `/eval-audit` to check that agents do not implicitly violate org-level policies
+- [x] Document the exemption process: any `exemptions:` entry must include a rationale and an approver reference
 
 ---
 
@@ -147,13 +147,13 @@ C-DAD's core argument: for AI to function as a dependable collaborator, software
 
 **Tasks**:
 
-- [ ] For each agent and skill, the registry manifest (Priority 1) serves as the machine-readable layer. Ensure manifests are kept in sync with markdown files.
-- [ ] Add a GitHub Actions workflow (or hook) that validates registry manifests on every PR:
+- [x] For each agent and skill, the registry manifest (Priority 1) serves as the machine-readable layer. Ensure manifests are kept in sync with markdown files.
+- [x] Add a GitHub Actions workflow (or hook) that validates registry manifests on every PR:
   - All agents in `.claude/agents/` have a registry entry
   - Registry `version` matches frontmatter `version`
   - Registry `lifecycle` matches frontmatter `status`
   - All `artifacts` paths in manifests resolve to real files
-- [ ] Generate a machine-readable index at `registry/index.json` — a flat list of all active agents and skills with their key metadata — suitable for consumption by external tools and other repositories
+- [x] Generate a machine-readable index at `registry/index.json` — a flat list of all active agents and skills with their key metadata — suitable for consumption by external tools and other repositories
 
 ---
 
@@ -163,16 +163,16 @@ C-DAD's core argument: for AI to function as a dependable collaborator, software
 
 **Tasks**:
 
-- [ ] Add a `depends-on:` optional frontmatter field to agent and skill files listing their explicit dependencies:
+- [x] Add a `depends-on:` optional frontmatter field to agent and skill files listing their explicit dependencies:
   ```yaml
   depends-on:
     - skills/accuracy-validation
     - skills/governance-compliance
   ```
-- [ ] Add a `used-by:` field (inverse index) to the registry manifest, populated automatically from `depends-on` entries
-- [ ] Create a script (`scripts/dependency-graph.sh`) that reads all manifests and emits a DOT or Mermaid dependency graph
-- [ ] Update `/eval-audit` to flag circular dependencies and orphaned skills (skills with no `used-by` entries)
-- [ ] Add a breaking-change check: when an agent or skill with `change-type: major` is modified, identify all dependents from the registry and include them in the review scope
+- [x] Add a `used-by:` field (inverse index) to the registry manifest, populated automatically from `depends-on` entries
+- [x] Create a script (`scripts/dependency-graph.sh`) that reads all manifests and emits a DOT or Mermaid dependency graph
+- [x] Update `/eval-audit` to flag circular dependencies and orphaned skills (skills with no `used-by` entries)
+- [x] Add a breaking-change check: when an agent or skill with `change-type: major` is modified, identify all dependents from the registry and include them in the review scope
 
 ---
 
@@ -182,10 +182,10 @@ C-DAD's core argument: for AI to function as a dependable collaborator, software
 
 **Tasks** (longer-term):
 
-- [ ] Define a pre-execution contract validation step in the Orchestrator: before spawning any agent, verify the agent's registry entry is `active` and its version is compatible with the current system version
-- [ ] Add a runtime policy check: when the Orchestrator routes a task, validate that the selected agent's policy block is compatible with the task's data sensitivity classification
-- [ ] Emit a structured event log entry for every agent invocation (agent id, version, model, task id, timestamp) to `metrics/invocation-log.jsonl` — this creates the runtime audit trail C-DAD requires
-- [ ] Define a compatibility matrix: which versions of each agent are compatible with which versions of dependent skills
+- [x] Define a pre-execution contract validation step in the Orchestrator: before spawning any agent, verify the agent's registry entry is `active` and its version is compatible with the current system version
+- [x] Add a runtime policy check: when the Orchestrator routes a task, validate that the selected agent's policy block is compatible with the task's data sensitivity classification
+- [x] Emit a structured event log entry for every agent invocation (agent id, version, model, task id, timestamp) to `metrics/invocation-log.jsonl` — this creates the runtime audit trail C-DAD requires
+- [x] Define a compatibility matrix: which versions of each agent are compatible with which versions of dependent skills
 
 ---
 
