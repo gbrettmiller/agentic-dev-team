@@ -18,6 +18,7 @@ FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
 case "$FILE_PATH" in
   */agents/*.md) FILE_TYPE="agent" ;;
   */commands/*.md) FILE_TYPE="skill" ;;
+  */skills/*.md) FILE_TYPE="knowledge-skill" ;;
   */.claude/hooks/*.sh|*/.claude/settings.json|*/CLAUDE.md) FILE_TYPE="config" ;;
   *) FILE_TYPE="other" ;;
 esac
@@ -119,6 +120,8 @@ if [ "$FILE_TYPE" = "agent" ]; then
   printf "\n"
   printf "  Agent file changed: $AGENT_NAME\n"
   printf "  ACTION REQUIRED: Run /eval-audit $FILE_PATH\n"
+  printf "  CHANGELOG REQUIRED: Log this change to metrics/config-changelog.jsonl with type 'agent-change',\n"
+  printf "    version-before, version-after, change-type (patch/minor/major), rationale, and triggered-by.\n"
   printf "  DOC SYNC REQUIRED: Update .claude/CLAUDE.md and docs/agent_info.md to reflect any changes.\n"
   printf "  Invoke the tech-writer persona to review affected documentation before marking this task complete.\n"
 fi
@@ -170,6 +173,17 @@ if [ "$FILE_TYPE" = "skill" ]; then
     printf "\n"
     printf "  Run /eval-audit for a full compliance report.\n"
   fi
+fi
+
+# --- Knowledge skill file changes ---
+if [ "$FILE_TYPE" = "knowledge-skill" ]; then
+  SKILL_NAME=$(basename "$FILE_PATH" .md)
+  printf "\n"
+  printf "  Knowledge skill changed: $SKILL_NAME\n"
+  printf "  CHANGELOG REQUIRED: Log this change to metrics/config-changelog.jsonl with type 'skill-change',\n"
+  printf "    version-before, version-after, change-type (patch/minor/major), rationale, and triggered-by.\n"
+  printf "  DOC SYNC REQUIRED: Verify docs/skills.md and CLAUDE.md Skills Registry reflect any changes.\n"
+  printf "  Invoke the tech-writer persona to review affected documentation before marking this task complete.\n"
 fi
 
 # --- Config file changes (hooks, settings, CLAUDE.md) ---

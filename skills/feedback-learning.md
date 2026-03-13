@@ -90,7 +90,7 @@ All configuration changes are logged in `metrics/config-changelog.jsonl` (one JS
 | Field | Required | Description |
 | --- | --- | --- |
 | `timestamp` | Yes | ISO 8601 timestamp |
-| `type` | Yes | `amend`, `learn`, `remember`, `forget`, `add`, `remove`, `restructure`, `rollback` |
+| `type` | Yes | `amend`, `learn`, `remember`, `forget`, `add`, `remove`, `restructure`, `rollback`, `agent-change`, `skill-change` |
 | `trigger` | Yes | `user` (explicit amend) or `system` (learning loop) |
 | `description` | Yes | Human-readable summary of the change |
 | `files_modified` | Yes | List of file paths changed |
@@ -98,6 +98,36 @@ All configuration changes are logged in `metrics/config-changelog.jsonl` (one JS
 | `previous_value` | Yes | Content before the change |
 | `new_value` | Yes | Content after the change |
 | `approved_by` | Yes | `user` or `auto` (for low-risk changes) |
+| `artifact` | No | Registry path of the agent or skill affected (e.g., `agents/security-review`) |
+| `version-before` | No | Semver string before the change (e.g., `1.0.0`) |
+| `version-after` | No | Semver string after the change (e.g., `1.1.0`) |
+| `change-type` | No | `patch`, `minor`, or `major` — semver bump classification |
+| `rationale` | No | Why the change was made (required for `agent-change` and `skill-change`) |
+| `triggered-by` | No | What caused the change: `user-amend`, `apply-fixes`, `eval-regression`, `agent-add`, `agent-remove` |
+
+### Agent/Skill Change Entry
+
+Use `type: "agent-change"` or `type: "skill-change"` whenever an agent or skill file is modified. Include version provenance fields so the changelog doubles as a version history.
+
+```json
+{
+  "timestamp": "2026-03-12T10:15:00Z",
+  "type": "agent-change",
+  "trigger": "user",
+  "description": "Added SQL injection detection rule to security-review agent",
+  "files_modified": ["agents/security-review.md", "registry/agents/security-review.json"],
+  "sections_modified": ["## Detect"],
+  "previous_value": "...",
+  "new_value": "...",
+  "approved_by": "user",
+  "artifact": "agents/security-review",
+  "version-before": "1.0.0",
+  "version-after": "1.1.0",
+  "change-type": "minor",
+  "rationale": "SQL injection was flagged in a security review but not detected by the agent",
+  "triggered-by": "user-amend"
+}
+```
 
 ## Rollback
 

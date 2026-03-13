@@ -103,6 +103,36 @@ Every agent and skill frontmatter carries a `version:` field following semver (`
 
 New agents start at `0.1.0` (`status: draft`). Promote to `1.0.0` when `status: active` (evals pass).
 
+### Changelog Requirement
+
+**Every modification to an agent or skill file must be logged to `metrics/config-changelog.jsonl`** with `type: "agent-change"` or `type: "skill-change"`. Required fields:
+
+- `artifact` — registry path of the affected file (e.g., `agents/security-review`)
+- `version-before` / `version-after` — semver strings before and after the bump
+- `change-type` — `patch`, `minor`, or `major`
+- `rationale` — why the change was made
+- `triggered-by` — what caused it: `user-amend`, `apply-fixes`, `eval-regression`, `agent-add`, `agent-remove`
+
+The `eval-compliance-check.sh` hook will remind you after every agent or skill edit.
+
+### Optional Frontmatter: `adr-links`
+
+Agents and skills may include an `adr-links:` frontmatter field listing ADR file paths that motivated their design. This creates machine-readable provenance from specification to implementation.
+
+```yaml
+---
+name: security-review
+description: Injection, auth/authz, data exposure, crypto
+tools: Read, Grep, Glob
+model: opus
+status: active
+version: 1.1.0
+adr-links:
+  - docs/adr/0003-security-review-scope.md
+  - docs/adr/0007-owasp-top10-coverage.md
+---
+```
+
 ### Agent Authoring Guidelines
 - Keep agents focused on orchestration: *when* to act, *who* to collaborate with, *why* to escalate
 - Execution details belong in skills, not in the agent persona
@@ -187,8 +217,9 @@ Use `/agent-add` — it handles all registration steps automatically. For manual
 
 **Every change to this repository must be reflected in documentation.** This is enforced at three levels:
 
-1. **Hook** — `eval-compliance-check.sh` fires on every Edit/Write to any file and emits targeted doc sync reminders:
-   - Agent/command files → run `/eval-audit`, update registry tables and docs
+1. **Hook** — `eval-compliance-check.sh` fires on every Edit/Write to any file and emits targeted reminders:
+   - Agent files → run `/eval-audit`, log to changelog (`type: agent-change`), update registry tables and docs
+   - Knowledge skill files → log to changelog (`type: skill-change`), update docs/skills.md and CLAUDE.md
    - Hook/settings/CLAUDE.md → verify setup and registry docs
    - Any other substantive file → check usage, architecture, setup, or README as appropriate
 2. **Commands** — `/agent-add` and `/agent-remove` include mandatory documentation update steps. The tech-writer persona reviews all modified docs before the command reports completion.
